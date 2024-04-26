@@ -5,8 +5,6 @@ import javax.imageio.*;
 import java.io.*;
 import javax.sound.sampled.*;
 
-//chloe
-// scarlett
 public class underTheSea
 {
     static File file;
@@ -80,7 +78,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         // bg imported image
         Image bg;
         try{
-            bg = ImageIO.read(new File("abstractbg.jpg"));
+            bg = ImageIO.read(new File("kraken 2.png"));
             g.drawImage(bg, 0, 0, null);
         }
         catch(Exception e) {}
