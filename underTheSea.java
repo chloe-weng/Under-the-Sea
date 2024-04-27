@@ -12,6 +12,7 @@ public class underTheSea
     static Clip music;
     public static void main(String...args) throws Exception
     {
+    	// chloe
         /*
         file = new File("music.wav");//File must be .WAV, .AU, or .AIFF
         stream = AudioSystem.getAudioInputStream(file);
