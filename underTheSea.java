@@ -12,13 +12,15 @@ public class underTheSea
     static Clip music;
     public static void main(String...args) throws Exception
     {
+        // jessica
+
         /*
         file = new File("music.wav");//File must be .WAV, .AU, or .AIFF
         stream = AudioSystem.getAudioInputStream(file);
         music = AudioSystem.getClip();
         music.open(stream);
         music.start(); //Start the music
-        music.loop(Clip.LOOP_CONTINUOUSLY); //Loop the music
+        music.loop(Clip.LOOP_CONTINUOUSLY); //   Loop the music
          */
 
         JFrame j = new JFrame();  //JFrame is the window; window is a depricated class
