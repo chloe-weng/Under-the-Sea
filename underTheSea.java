@@ -57,10 +57,11 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     {
         time = new Timer(5, this); //sets delay to 15 millis and calls the actionPerformed of this class.
         setSize(1500, 700);
-        setVisible(true); //it's like calling the repaint method.
+        setVisible(true); // calls the paintComponent method
+
         time.start();
 
-        // add variables
+        // initialize variables
 
         addMouseListener(this);
         setFocusable(true);
@@ -72,6 +73,38 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     {
         g.setColor(Color.WHITE);
         g.fillRect(0,0,1500,700);
+
+        // chloe
+        // cover - next
+        // intro - next
+        // instructions - next
+        // cover lvl 1
+
+
+        // drawLvl1 -> start timer variable, if timer < 60
+
+        // jessica
+        // drawSea
+
+        // scarlett
+        // drawArgo
+
+
+        // PART 2 AFTER THURSDAY
+        // chloe
+        // drawLives -> lose screen
+
+        // jessica
+        // drawSiren (1)
+        // drawKraken (2)
+
+        // scarlett
+        // drawShield (1)
+        // drawHeart (2)
+
+
+
+
         drawStillLife(g, flower);
         drawAnimation(g, x, y, wineY, chamY);
 
@@ -166,10 +199,6 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
         chamY += 1;
         wineY += 3;
-
-
-
-
 
 
         repaint();
