@@ -111,7 +111,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
 
 
-        drawStillLife(g, flower);
+       
         drawAnimation(g, x, y, wineY, chamY);
 
 
