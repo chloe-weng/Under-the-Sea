@@ -54,19 +54,19 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     private int addX, addY;
     private boolean flower;
     private int argoX, argoY;
-    private int add;
+    private int addlvl1;
 
 
     MyPanelb()
     {
-        time = new Timer(50, this); //sets delay to 15 millis and calls the actionPerformed of this class.
+        time = new Timer(5, this); //sets delay to 15 millis and calls the actionPerformed of this class.
         setSize(1500, 700);
         setVisible(true); // calls the paintComponent method
 
         time.start();
 
         // initialize variables
-        add = 1;
+        addlvl1 = 1;
         argoX = 0;
         argoY =0;
         addMouseListener(this);
@@ -122,7 +122,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         Image argoimg;
         try{
             argoimg = ImageIO.read(new File("argoSprite.png"));
-            g.drawImage(argoimg, argoX+1400, argoY, 150,150,null);
+            g.drawImage(argoimg, argoX+750, argoY, 150,150,null);
         }
         catch(Exception e) {}
     
@@ -219,10 +219,12 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         //argo movement
 
 
-       for(int i =0; i<7; i++)
-		{  argoX -= add;
-		   if(argoX>1500)
-		   	 argoX =0;
+       for(int i =0; i<1; i++)
+		{ 
+             argoX -= addlvl1;
+             //if(argoX<-750||argoX>=1300)
+                //loselife():
+
         }
         repaint();
     }
