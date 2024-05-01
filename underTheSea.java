@@ -128,6 +128,49 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     
     }
     
+    public void drawStillLife(Graphics g, boolean flower)
+    {
+        // bg imported image
+        Image bg;
+        try{
+            bg = ImageIO.read(new File("kraken 2.png"));
+            g.drawImage(bg, 0, 0, null);
+        }
+        catch(Exception e) {}
+
+
+
+
+        // FLOWERS IMPORTED IMAGE
+        if(flower) {
+            Image flowers;
+            try {
+                flowers = ImageIO.read(new File("flowers1.png"));
+                g.drawImage(flowers, 635, 40, 20,20,null);
+            } catch (Exception e) {
+            }
+        }
+        else {
+            Image flowers2;
+            try {
+                flowers2 = ImageIO.read(new File("flowers2.png"));
+                g.drawImage(flowers2, 670, 95, null);
+            } catch (Exception e) {
+            }
+        }
+
+
+        // IMPORTED IMAGE - WINE BOTTLE
+        Image wineBottle;
+        try {
+            wineBottle = ImageIO.read(new File("wine bottle.png"));
+            g.drawImage(wineBottle, 625, 90, null);
+        } catch (Exception e) {
+        }
+
+
+    }
+
 
     public void drawAnimation(Graphics g, int x, int y, int wineY, int chamY) {
         // wings
