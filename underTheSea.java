@@ -7,19 +7,14 @@ import javax.imageio.*;
 import java.io.*;
 import javax.sound.sampled.*;
 
-//scarlett
-
 public class underTheSea
 {
     static File file;
     static AudioInputStream stream;
     static Clip music;
+
     public static void main(String...args) throws Exception
     {
-    	// chloe
-
-        // jessica
-
         /*
         file = new File("music.wav");//File must be .WAV, .AU, or .AIFF
         stream = AudioSystem.getAudioInputStream(file);
@@ -35,10 +30,7 @@ public class underTheSea
         j.add(m); //adds the panel to the frame so that the picture will be drawn
         //use setContentPane() sometimes works better then just add b/c of greater efficiency.
 
-
         j.setVisible(true); //allows the frame to be shown.
-
-
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //makes the dialog box exit when you click the "x" button.
     }
 
@@ -65,6 +57,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         addlvl1 = 1;
         argoX = 0;
         argoY =0;
+
         addMouseListener(this);
         setFocusable(true);
         addKeyListener(this);
