@@ -122,7 +122,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         Image argoimg;
         try{
             argoimg = ImageIO.read(new File("argoSprite.png"));
-            g.drawImage(argoimg, argoX+750, argoY, 150,150,null);
+            g.drawImage(argoimg, argoX+650, argoY+250, 150,150,null);
         }
         catch(Exception e) {}
     
@@ -174,12 +174,10 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         wineY += 3;
 
         //argo movement
-
-
        for(int i =0; i<1; i++)
 		{ 
              argoX -= addlvl1;
-             //if(argoX<-750||argoX>=1300)
+             //if(argoX<-750||argoX>=1575)
                 //loselife():
 
         }
