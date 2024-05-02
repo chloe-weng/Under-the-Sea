@@ -44,6 +44,9 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     private int argoX, argoY;
     private int addlvl1;
 
+    // waves bg variables
+    private int wave1X, wave1Y, wave2X, wave2Y, wave3Y, wave4Y;
+
 
     MyPanelb()
     {
@@ -54,9 +57,17 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         time.start();
 
         // initialize variables
-        addlvl1 = 1;
+        addlvl1 = 8;
         argoX = 0;
-        argoY =0;
+        argoY = 0;
+
+        // waves bg variables
+        wave1X = 0;
+        wave1Y = 480;
+        wave2X = 0;
+        wave2Y = 320;
+        wave3Y = 160;
+        wave4Y = 0;
 
         addMouseListener(this);
         setFocusable(true);
@@ -76,13 +87,15 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         // cover lvl 1
 
 
-        // drawLvl1 -> start timer variable, if timer < 60
+        // drawLvl1 -> use boolean to keep track when beginning sequence is over
 
         // jessica
-        // drawSea
+        drawWave4(g);
+        drawWave3(g);
+        drawWave2(g);
+        drawWave1(g);
 
         // scarlett
-        // drawArgo
         drawArgo(g);
 
         // PART 2 AFTER THURSDAY
@@ -109,17 +122,76 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     
     }
 
+    public void drawWave1(Graphics g) {
+        Image wave1;
+        Image wave2;
+        try {
+            wave1 = ImageIO.read(new File("wavesSprite.png"));
+            wave2 = ImageIO.read(new File("wavesSprite.png"));
+
+            g.drawImage(wave1, wave1X, wave1Y,null);
+            g.drawImage(wave2, wave1X + 1497, wave1Y, null);
+        }
+        catch(Exception e) {}
+    }
+
+    public void drawWave2(Graphics g) {
+        Image wave1;
+        Image wave2;
+        try {
+            wave1 = ImageIO.read(new File("wavesSprite.png"));
+            wave2 = ImageIO.read(new File("wavesSprite.png"));
+
+            g.drawImage(wave1, wave2X, wave2Y,null);
+            g.drawImage(wave2, wave2X - 1497, wave2Y, null);
+        }
+        catch(Exception e) {}
+    }
+
+    public void drawWave3(Graphics g) {
+        Image wave1;
+        Image wave2;
+        try {
+            wave1 = ImageIO.read(new File("wavesSprite.png"));
+            wave2 = ImageIO.read(new File("wavesSprite.png"));
+
+            g.drawImage(wave1, wave1X, wave3Y,null);
+            g.drawImage(wave2, wave1X + 1497, wave3Y, null);
+        }
+        catch(Exception e) {}
+    }
+
+    public void drawWave4(Graphics g) {
+        Image wave1;
+        Image wave2;
+        try {
+            wave1 = ImageIO.read(new File("wavesSprite.png"));
+            wave2 = ImageIO.read(new File("wavesSprite.png"));
+
+            g.drawImage(wave1, wave2X, wave4Y,null);
+            g.drawImage(wave2, wave2X - 1497, wave4Y, null);
+        }
+        catch(Exception e) {}
+    }
+
 
     public void actionPerformed(ActionEvent e)
     {
         //argo movement
-       for(int i =0; i<1; i++)
-		{ 
-             argoX -= addlvl1;
-             //if(argoX<-750||argoX>=1300)
-                //loselife():
+        argoX -= addlvl1;
+        //if(argoX<-750||argoX>=1300)
+            //loselife():
 
-        }
+
+        //  waves bg movement
+        wave1X -= addlvl1;
+        if(wave1X < -1496)
+            wave1X = 0;
+
+        wave2X += addlvl1;
+        if(wave2X > 2996)
+            wave2X = 0;
+
         repaint();
     }
 
