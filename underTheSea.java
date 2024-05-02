@@ -7,19 +7,14 @@ import javax.imageio.*;
 import java.io.*;
 import javax.sound.sampled.*;
 
-//scarlett
-
 public class underTheSea
 {
     static File file;
     static AudioInputStream stream;
     static Clip music;
+
     public static void main(String...args) throws Exception
     {
-    	// chloe
-
-        // jessica
-
         /*
         file = new File("music.wav");//File must be .WAV, .AU, or .AIFF
         stream = AudioSystem.getAudioInputStream(file);
@@ -35,10 +30,7 @@ public class underTheSea
         j.add(m); //adds the panel to the frame so that the picture will be drawn
         //use setContentPane() sometimes works better then just add b/c of greater efficiency.
 
-
         j.setVisible(true); //allows the frame to be shown.
-
-
         j.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //makes the dialog box exit when you click the "x" button.
     }
 
@@ -49,12 +41,11 @@ public class underTheSea
 class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListener
 {
     private Timer time;
-    private int x,y;
-    private int wineY, chamY;
-    private int addX, addY;
-    private boolean flower;
     private int argoX, argoY;
     private int addlvl1;
+
+    // waves bg variables
+    private int wave1X, wave1Y, wave2X, wave2Y, wave3Y, wave4Y;
 
 
     MyPanelb()
@@ -66,9 +57,18 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         time.start();
 
         // initialize variables
-        addlvl1 = 1;
+        addlvl1 = 5;
         argoX = 0;
-        argoY =0;
+        argoY = 0;
+
+        // waves bg variables
+        wave1X = 0;
+        wave1Y = 480;
+        wave2X = 0;
+        wave2Y = 320;
+        wave3Y = 160;
+        wave4Y = 0;
+
         addMouseListener(this);
         setFocusable(true);
         addKeyListener(this);
@@ -87,13 +87,15 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         // cover lvl 1
 
 
-        // drawLvl1 -> start timer variable, if timer < 60
+        // drawLvl1 -> use boolean to keep track when beginning sequence is over
 
         // jessica
-        // drawSea
+        drawWave4(g);
+        drawWave3(g);
+        drawWave2(g);
+        drawWave1(g);
 
         // scarlett
-        // drawArgo
         drawArgo(g);
 
         // PART 2 AFTER THURSDAY
@@ -107,14 +109,6 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         // scarlett
         // drawShield (1)
         // drawHeart (2)
-
-
-
-
-       
-        drawAnimation(g, x, y, wineY, chamY);
-
-
     }
 
     public void drawArgo(Graphics g)
@@ -127,67 +121,91 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         catch(Exception e) {}
     
     }
-    
 
-    public void drawAnimation(Graphics g, int x, int y, int wineY, int chamY) {
-        // wings
-        if(x % 4 == 0)
-            flyWing1(g, x);
+    public void drawWave1(Graphics g) {
+        Image wave1;
+        Image wave2;
+        try {
+            wave1 = ImageIO.read(new File("wavesSprite.png"));
+            wave2 = ImageIO.read(new File("wavesSprite.png"));
 
-
+            g.drawImage(wave1, wave1X, wave1Y,null);
+            g.drawImage(wave2, wave1X + 1497, wave1Y, null);
+        }
+        catch(Exception e) {}
     }
 
+    public void drawWave2(Graphics g) {
+        Image wave1;
+        Image wave2;
+        try {
+            wave1 = ImageIO.read(new File("wavesSprite.png"));
+            wave2 = ImageIO.read(new File("wavesSprite.png"));
 
-    public void flyWing1(Graphics g, int x) {
-        g.setColor(Color.WHITE);
-        g.fillOval(x+15, y-4, 30, 10);
-        g.setColor(Color.BLACK);
-        g.drawOval(x+15, y-4, 30, 10);
+            g.drawImage(wave1, wave2X, wave2Y,null);
+            g.drawImage(wave2, wave2X - 1497, wave2Y, null);
+        }
+        catch(Exception e) {}
+    }
+
+    public void drawWave3(Graphics g) {
+        Image wave1;
+        Image wave2;
+        try {
+            wave1 = ImageIO.read(new File("wavesSprite.png"));
+            wave2 = ImageIO.read(new File("wavesSprite.png"));
+
+            g.drawImage(wave1, wave1X, wave3Y,null);
+            g.drawImage(wave2, wave1X + 1497, wave3Y, null);
+        }
+        catch(Exception e) {}
+    }
+
+    public void drawWave4(Graphics g) {
+        Image wave1;
+        Image wave2;
+        try {
+            wave1 = ImageIO.read(new File("wavesSprite.png"));
+            wave2 = ImageIO.read(new File("wavesSprite.png"));
+
+            g.drawImage(wave1, wave2X, wave4Y,null);
+            g.drawImage(wave2, wave2X - 1497, wave4Y, null);
+        }
+        catch(Exception e) {}
     }
 
 
     public void actionPerformed(ActionEvent e)
     {
-        // fly movement
-        if (x <= 0)
-            x=1200;
-
-
-        x-=addX;
-        y+=addY;
-
-
-        if(y >= 600)
-            addY*=-1;
-        if(y <= 30)
-            addY*=-1;
-
-
-        // wine movement
-        if(wineY >= 70)
-            wineY = 0;
-        if(chamY >= 70)
-            chamY = 0;
-
-
-        chamY += 1;
-        wineY += 3;
-
         //argo movement
+
        for(int i =0; i<1; i++)
 		{ 
              argoX -= addlvl1;
              //if(argoX<-750||argoX>=1575)
                 //loselife():
-
         }
+        argoX -= addlvl1;
+        //if(argoX<-750||argoX>=1300)
+            //loselife():
+
+
+        //  waves bg movement
+        wave1X -= addlvl1;
+        if(wave1X < -1496)
+            wave1X = 0;
+
+        wave2X += addlvl1;
+        if(wave2X > 1500)
+            wave2X = 0;
+
+
         repaint();
     }
 
 
     public void keyPressed(KeyEvent e) {
-
-
+        // Moves the argoSprite
         if(e.getKeyCode() == KeyEvent.VK_UP)
             argoY-=35;
         if(e.getKeyCode() == KeyEvent.VK_DOWN)
@@ -195,7 +213,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         if(e.getKeyCode() == KeyEvent.VK_LEFT)
             argoX -=35;
         if(e.getKeyCode() == KeyEvent.VK_RIGHT)
-            argoX +=90;
+            argoX +=100;
 
 
         repaint();
@@ -203,21 +221,6 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     public void keyTyped(KeyEvent e){}
     public void keyReleased(KeyEvent e){}
     public void mousePressed(MouseEvent e){
-        Point pos = e.getPoint();
-
-
-        x = pos.x;
-        y = pos.y;
-
-
-        addY*=-1;
-
-
-        if(flower)
-            flower = false;
-        else
-            flower = true;
-
 
         repaint();
     }
