@@ -79,6 +79,8 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     {
         g.setColor(Color.WHITE);
         g.fillRect(0,0,1500,700);
+        
+        //Test checkin
 
         // chloe
         // cover - next
