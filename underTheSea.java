@@ -60,6 +60,9 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     private int mouseX, mouseY;
     private boolean timeStart=false;
 
+    // monster variables
+    private int monsterX, monsterY;
+
     MyPanelb()
     {
         time = new Timer(5, this); //sets delay to 15 millis and calls the actionPerformed of this class.
@@ -304,7 +307,21 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
                pwpY < argoY + 150 &&
                pwpY + 50 > argoY;
     }
-    
+
+    private void drawMonster(Graphics g) {
+        Image monster;
+        int rand = (int) (Math.random() * 2) + 1;
+
+        if(rand == 1) {
+            try {
+                monster = ImageIO.read(new File("krakenSprite.png"));
+
+                
+                //g.drawImage(monster, )
+            }
+            catch(Exception e) {}
+        }
+    }
 
     public void actionPerformed(ActionEvent e)
     {
