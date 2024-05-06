@@ -129,6 +129,11 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         		drawArgoWithShield(g);
         	}
          	else drawArgo(g);
+
+             if(shieldVisible){drawShield(g);}
+    
+             // drawHeart (2)
+            if(heartVisible){drawHeart(g);}
         }
         // PART 2 AFTER THURSDAY
         // chloe
@@ -140,10 +145,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
         // scarlett
         // drawShield (1)
-       if(shieldVisible){drawShield(g);}
-    
-        // drawHeart (2)
-       if(heartVisible){drawHeart(g);}
+       
         
     }
 
