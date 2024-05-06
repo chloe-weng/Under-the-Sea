@@ -5,6 +5,8 @@ import javax.swing.*;
 import java.awt.event.*;
 import javax.imageio.*;
 import java.io.*;
+import java.net.URL;
+
 import javax.sound.sampled.*;
 
 public class underTheSea
@@ -51,6 +53,12 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     private int shieldX, shieldY, heartpX, heartpY;
     private boolean shieldVisible, heartVisible, argowithShield;
     private long shieldTime;
+    
+    // intro variables
+    private Image[] nextArray;
+    private int nextIndex=0, timeInt=0;
+    private int mouseX, mouseY;
+    private boolean timeStart=false;
 
     MyPanelb()
     {
@@ -101,23 +109,27 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         // intro - next
         // instructions - next
         // cover lvl 1
-
+        drawIntro1(g);
+        drawButton(g);
 
         // drawLvl1 -> use boolean to keep track when beginning sequence is over
 
         // jessica
-        drawWave4(g);
-        drawWave3(g);
-        drawWave2(g);
-        drawWave1(g);
-
-        // scarlett
-        if(argowithShield)
+        
+        if(timeStart)
         {
-            drawArgoWithShield(g);
-        }
-         else drawArgo(g);
+        	drawWave4(g);
+        	drawWave3(g);
+        	drawWave2(g);
+        	drawWave1(g);
 
+        	// scarlett
+        	if(argowithShield)
+        	{
+        		drawArgoWithShield(g);
+        	}
+         	else drawArgo(g);
+        }
         // PART 2 AFTER THURSDAY
         // chloe
         // drawLives -> lose screen
@@ -135,6 +147,62 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         
     }
 
+    public void drawIntro1(Graphics g)
+    {
+    	try
+        {
+        	Image cover = ImageIO.read(new File("Cover.png"));
+        	Image intro = ImageIO.read(new File("Introduction.png"));
+        	Image instr1 = ImageIO.read(new File("Instructions Lvl 1.png"));
+        	Image lvl1 = ImageIO.read(new File("Level 1.png"));
+        	Image button = ImageIO.read(new File("nextSprite.png"));
+
+        	nextArray = new Image[4];
+        	nextArray[0] = cover.getScaledInstance(1500,700,Image.SCALE_DEFAULT);
+        	nextArray[1] = intro.getScaledInstance(1500,700,Image.SCALE_DEFAULT);
+        	nextArray[2] = instr1.getScaledInstance(1500,700,Image.SCALE_DEFAULT);
+        	nextArray[3] = lvl1.getScaledInstance(1500,700,Image.SCALE_DEFAULT);
+        	
+        	g.drawImage(button.getScaledInstance(100,100,Image.SCALE_DEFAULT),1350,500,null);
+        	
+        	
+        	if(nextIndex==0)
+        	{
+        		g.drawImage(nextArray[0],0,0,null);
+        	}
+        	else if(nextIndex==1)
+        	{
+        		g.drawImage(nextArray[1],0,0,null);
+        	}
+        	else if(nextIndex==2)
+        	{
+        		g.drawImage(nextArray[2],0,0,null);
+        	}
+        	else if(nextIndex==3)
+        	{
+        		g.drawImage(nextArray[3],0,0,null);
+        	}
+        	else
+        	{
+        		timeInt = 60;
+        		timeStart = true;
+        	}
+        }
+        catch(Exception e) {}
+    	
+    }
+    public void drawButton(Graphics g)
+    {
+    	try
+        {
+        	Image button = ImageIO.read(new File("nextSprite.png"));
+        	g.drawImage(button.getScaledInstance(100,100,Image.SCALE_DEFAULT),1120,450,null);
+        	
+        }
+        catch(Exception e) {}
+    	
+    }
+    
     public void drawArgo(Graphics g)
     {
         Image argoimg;
@@ -339,6 +407,17 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     public void keyTyped(KeyEvent e){}
     public void keyReleased(KeyEvent e){}
     public void mousePressed(MouseEvent e){
+    	
+    	 Point pos = e.getPoint();
+    	 mouseX = pos.x;
+         mouseY = pos.y;
+     	
+         // nextbutton
+         if(mouseX>=1120 && mouseX<=1220 && mouseY>=450 && mouseY<=550)
+         {
+         	nextIndex++;
+         }
+         
 
         repaint();
     }
