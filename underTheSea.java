@@ -61,7 +61,9 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     private boolean timeStart=false;
 
     // monster variables
-    private int monsterX, monsterY;
+    private int monster1X, monster1Y, monster1Type;
+    private int monster2X, monster2Y;
+    private boolean resetMonster1;
 
     MyPanelb()
     {
@@ -92,6 +94,12 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         shieldVisible = false;
         heartVisible = false;
         argowithShield = false;
+
+        // monster variables
+        monster1X = monster2X = 1300;
+        monster1Y = monster2Y = 0;
+        monster1Type = 0;
+        resetMonster1 = true;
         
 
         addMouseListener(this);
@@ -104,27 +112,20 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     {
         g.setColor(Color.WHITE);
         g.fillRect(0,0,1500,700);
-        
-        //Test checkin
 
-        // chloe
-        // cover - next
-        // intro - next
-        // instructions - next
-        // cover lvl 1
         drawIntro1(g);
         drawButton(g);
-
-        // drawLvl1 -> use boolean to keep track when beginning sequence is over
-
-        // jessica
         
         if(timeStart)
         {
+            // draw background waves
         	drawWave4(g);
         	drawWave3(g);
         	drawWave2(g);
         	drawWave1(g);
+
+            // draw kraken and siren
+            drawMonster1(g);
 
         	// scarlett
         	if(argowithShield)
@@ -137,6 +138,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     
              // drawHeart (2)
             if(heartVisible){drawHeart(g);}
+
         }
         // PART 2 AFTER THURSDAY
         // chloe
@@ -310,7 +312,53 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
                pwpY + 50 > argoY;
     }
 
-    private void drawMonster(Graphics g) {
+    private void drawMonster1(Graphics g) {
+        Image monster;
+        int[] randY = {wave1Y, wave2Y, wave3Y, wave4Y};
+
+        if(resetMonster1) { // at or reset to the front
+            resetMonster1 = false;
+            int chooseY = (int) (Math.random() * 4) + 1;
+            // below MIGHT change depending on height of the sprite, might need to crop siren and reupload to git
+            monster1Y = randY[chooseY - 1];
+            monster1X = 1300;
+
+            monster1Type = (int) (Math.random() * 2) + 1;
+            if(monster1Type == 1) {
+                try {
+                    monster = ImageIO.read(new File("krakenSprite.png"));
+                    g.drawImage(monster, monster1X, monster1Y + 10, 150, 150, null);
+                }
+                catch(Exception e) {}
+            }
+            else {
+                try {
+                    monster = ImageIO.read(new File("sirenSprite.png"));
+                    g.drawImage(monster, monster1X, monster1Y + 20, 150, 150, null);
+                }
+                catch(Exception e) {}
+            }
+        }
+        else {
+            if(monster1Type == 1) {
+                try {
+                    monster = ImageIO.read(new File("krakenSprite.png"));
+                    g.drawImage(monster, monster1X, monster1Y + 10, 150, 150, null);
+                }
+                catch(Exception e) {}
+            }
+            else {
+                try {
+                    monster = ImageIO.read(new File("sirenSprite.png"));
+                    g.drawImage(monster, monster1X, monster1Y + 20, 150, 150, null);
+                }
+                catch(Exception e) {}
+            }
+        }
+    }
+
+    /*
+    private void drawMonster2(Graphics g) {
         Image monster;
         int rand = (int) (Math.random() * 2) + 1;
 
@@ -318,12 +366,14 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             try {
                 monster = ImageIO.read(new File("krakenSprite.png"));
 
-                
+
                 //g.drawImage(monster, )
             }
             catch(Exception e) {}
         }
     }
+
+     */
 
     public void actionPerformed(ActionEvent e)
     {
@@ -343,8 +393,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
                 //loselife():
                 argoX = 650;
                 argoY = 250;
-            }    
-                     
+            }
 
 
         //  waves bg movement
@@ -404,7 +453,20 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
                 //addlife();
            //play sound effect?
        }
-        
+
+       // monster movement
+        monster1X -= addlvl1 + 20;
+       /*
+       if(!argowithShield && monster1X <= argoX + 150 && monster1X + 150 >= argoX && monster1Y <= argoY + 150
+            && monster1Y + 150 >= argoY) {
+           monster1X = 1400;
+           // decrease lives
+       }
+        */
+
+       if(monster1X + 150 < 0)
+           resetMonster1 = true;
+
         repaint();
     }
 
