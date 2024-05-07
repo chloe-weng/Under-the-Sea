@@ -410,7 +410,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         heartpX -= addlvl1;
         
         //shield powerup mechanics
-        if(!shieldVisible && Math.random() < 0.001) 
+        if(!shieldVisible && Math.random() < 0.008) 
         { 
             shieldX = 1450;
             shieldY = (int) (Math.random() * 650);
@@ -434,7 +434,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         }
 
        //heart powerup mechanics
-       if(!heartVisible && Math.random() < 0.001) 
+       if(!heartVisible && Math.random() < 0.007) 
        { 
            heartpX = 1450;
            heartpY = (int) (Math.random() * 650);
