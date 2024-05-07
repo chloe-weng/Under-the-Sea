@@ -79,14 +79,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         argoX = 650;
         argoY = 250;
 
-        // waves bg variables
-        wave1X = 0;
-        wave1Y = 480;
-        wave2X = 0;
-        wave2Y = 320;
-        wave3Y = 160;
-        wave4Y = 0;
-
+        // image initialization
         try {
             wave1_1 = ImageIO.read(new File("wavesSprite.png"));
             wave1_2 = ImageIO.read(new File("wavesSprite.png"));
@@ -98,6 +91,15 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             wave4_2 = ImageIO.read(new File("wavesSprite.png"));
         }
         catch (Exception e) {}
+
+        // waves bg variables
+        wave1X = 0;
+        wave1Y = 480;
+        wave2X = 0;
+        wave2Y = 320;
+        wave3Y = 160;
+        wave4Y = 0;
+
 
         //powerup variables
         shieldX = 0;
