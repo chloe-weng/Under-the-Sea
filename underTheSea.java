@@ -62,8 +62,8 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
     // monster variables
     private int monster1X, monster1Y, monster1Type;
-    private int monster2X, monster2Y;
-    private boolean resetMonster1;
+    private int monster2X, monster2Y, monster2Type;
+    private boolean resetMonster1, resetMonster2;
 
     MyPanelb()
     {
@@ -98,8 +98,8 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         // monster variables
         monster1X = monster2X = 1300;
         monster1Y = monster2Y = 0;
-        monster1Type = 0;
-        resetMonster1 = true;
+        monster1Type = monster2Type = 0;
+        resetMonster1 = resetMonster2 = true;
         
 
         addMouseListener(this);
@@ -126,6 +126,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
             // draw kraken and siren
             drawMonster1(g);
+            drawMonster2(g);
 
         	// scarlett
         	if(argowithShield)
@@ -357,23 +358,51 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         }
     }
 
-    /*
     private void drawMonster2(Graphics g) {
         Image monster;
-        int rand = (int) (Math.random() * 2) + 1;
+        int[] randY = {wave1Y, wave2Y, wave3Y, wave4Y};
 
-        if(rand == 1) {
-            try {
-                monster = ImageIO.read(new File("krakenSprite.png"));
+        if(resetMonster2) { // at or reset to the front
+            resetMonster2 = false;
+            int chooseY = (int) (Math.random() * 4) + 1;
+            // below MIGHT change depending on height of the sprite, might need to crop siren and reupload to git
+            monster2Y = randY[chooseY - 1];
+            monster2X = 1300;
 
-
-                //g.drawImage(monster, )
+            monster2Type = (int) (Math.random() * 2) + 1;
+            if(monster2Type == 1) {
+                try {
+                    monster = ImageIO.read(new File("krakenSprite.png"));
+                    g.drawImage(monster, monster2X, monster2Y + 10, 150, 150, null);
+                }
+                catch(Exception e) {}
             }
-            catch(Exception e) {}
+            else {
+                try {
+                    monster = ImageIO.read(new File("sirenSprite.png"));
+                    g.drawImage(monster, monster2X, monster2Y + 20, 150, 150, null);
+                }
+                catch(Exception e) {}
+            }
+        }
+        else {
+            if(monster2Type == 1) {
+                try {
+                    monster = ImageIO.read(new File("krakenSprite.png"));
+                    g.drawImage(monster, monster2X, monster2Y + 10, 150, 150, null);
+                }
+                catch(Exception e) {}
+            }
+            else {
+                try {
+                    monster = ImageIO.read(new File("sirenSprite.png"));
+                    g.drawImage(monster, monster2X, monster2Y + 20, 150, 150, null);
+                }
+                catch(Exception e) {}
+            }
         }
     }
 
-     */
 
     public void actionPerformed(ActionEvent e)
     {
@@ -456,16 +485,20 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
        // monster movement
         monster1X -= addlvl1 + 20;
-
-       // resets monster even if not touching??
        if(!argowithShield && monster1X < argoX + 100 && monster1X + 100 > argoX && monster1Y < argoY + 100 && monster1Y + 100 > argoY) {
            resetMonster1 = true;
-           
            // decrease lives
        }
-
        if(monster1X + 150 < 0)
            resetMonster1 = true;
+
+        monster2X -= addlvl1 + 20;
+        if(!argowithShield && monster2X < argoX + 100 && monster2X + 100 > argoX && monster2Y < argoY + 100 && monster2Y + 100 > argoY) {
+            resetMonster2 = true;
+            // decrease lives
+        }
+        if(monster2X + 150 < 0)
+            resetMonster2 = true;
 
         repaint();
     }
