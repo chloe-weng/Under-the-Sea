@@ -48,6 +48,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
     // waves bg variables
     private int wave1X, wave1Y, wave2X, wave2Y, wave3Y, wave4Y;
+    private Image wave1_1, wave1_2, wave2_1, wave2_2, wave3_1, wave3_2, wave4_1, wave4_2;
 
     //powerup variables
     private int shieldX, shieldY, heartpX, heartpY;
@@ -85,6 +86,18 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         wave2Y = 320;
         wave3Y = 160;
         wave4Y = 0;
+
+        try {
+            wave1_1 = ImageIO.read(new File("wavesSprite.png"));
+            wave1_2 = ImageIO.read(new File("wavesSprite.png"));
+            wave2_1 = ImageIO.read(new File("wavesSprite.png"));
+            wave2_2 = ImageIO.read(new File("wavesSprite.png"));
+            wave3_1 = ImageIO.read(new File("wavesSprite.png"));
+            wave3_2 = ImageIO.read(new File("wavesSprite.png"));
+            wave4_1 = ImageIO.read(new File("wavesSprite.png"));
+            wave4_2 = ImageIO.read(new File("wavesSprite.png"));
+        }
+        catch (Exception e) {}
 
         //powerup variables
         shieldX = 0;
@@ -141,18 +154,6 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             if(heartVisible){drawHeart(g);}
 
         }
-        // PART 2 AFTER THURSDAY
-        // chloe
-        // drawLives -> lose screen
-
-        // jessica
-        // drawSiren (1)
-        // drawKraken (2)
-
-        // scarlett
-        // drawShield (1)
-       
-        
     }
 
     public void drawIntro1(Graphics g)
@@ -223,55 +224,23 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     }
 
     public void drawWave1(Graphics g) {
-        Image wave1;
-        Image wave2;
-        try {
-            wave1 = ImageIO.read(new File("wavesSprite.png"));
-            wave2 = ImageIO.read(new File("wavesSprite.png"));
-
-            g.drawImage(wave1, wave1X, wave1Y,null);
-            g.drawImage(wave2, wave1X + 1497, wave1Y, null);
-        }
-        catch(Exception e) {}
+        g.drawImage(wave1_1, wave1X, wave1Y, null);
+        g.drawImage(wave1_2, wave1X + 1497, wave1Y, null);
     }
 
     public void drawWave2(Graphics g) {
-        Image wave1;
-        Image wave2;
-        try {
-            wave1 = ImageIO.read(new File("wavesSprite.png"));
-            wave2 = ImageIO.read(new File("wavesSprite.png"));
-
-            g.drawImage(wave1, wave2X, wave2Y,null);
-            g.drawImage(wave2, wave2X - 1497, wave2Y, null);
-        }
-        catch(Exception e) {}
+        g.drawImage(wave2_1, wave2X, wave2Y,null);
+        g.drawImage(wave2_2, wave2X - 1497, wave2Y, null);
     }
 
     public void drawWave3(Graphics g) {
-        Image wave1;
-        Image wave2;
-        try {
-            wave1 = ImageIO.read(new File("wavesSprite.png"));
-            wave2 = ImageIO.read(new File("wavesSprite.png"));
-
-            g.drawImage(wave1, wave1X, wave3Y,null);
-            g.drawImage(wave2, wave1X + 1497, wave3Y, null);
-        }
-        catch(Exception e) {}
+        g.drawImage(wave3_1, wave1X, wave3Y,null);
+        g.drawImage(wave3_2, wave1X + 1497, wave3Y, null);
     }
 
     public void drawWave4(Graphics g) {
-        Image wave1;
-        Image wave2;
-        try {
-            wave1 = ImageIO.read(new File("wavesSprite.png"));
-            wave2 = ImageIO.read(new File("wavesSprite.png"));
-
-            g.drawImage(wave1, wave2X, wave4Y,null);
-            g.drawImage(wave2, wave2X - 1497, wave4Y, null);
-        }
-        catch(Exception e) {}
+        g.drawImage(wave4_1, wave2X, wave4Y,null);
+        g.drawImage(wave4_2, wave2X - 1497, wave4Y, null);
     }
 
     public void drawShield(Graphics g)
