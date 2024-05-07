@@ -475,7 +475,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         
     	if(timeStart)
     	{
-    		timeDec-=0.5;
+    		timeDec-=0.15;
     		if(timeDec<=0 || numLives==0)
         	{
         		timeEnd=true;
@@ -489,14 +489,14 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
          argoX -= addlvl1;
          if(argoX< -100||argoX>= 1450)
             {
-                //loselife():
+                numLives--;
                 argoX = 650;
                 argoY = 250;
             }    
                 
         if(argoY< -100|argoY>= 650)
             {
-                //loselife():
+                numLives--;
                 argoX = 650;
                 argoY = 250;
             }
@@ -533,7 +533,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             shieldVisible = false;
             argowithShield = true;
             shieldTime = System.currentTimeMillis();
-            //play sound effect?
+            
         }
         if (argowithShield && System.currentTimeMillis() - shieldTime >= 5000) {
             argowithShield = false;
@@ -555,16 +555,15 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
        if(heartVisible && (touchingPowerup(heartpX, heartpY, argoX, argoY)))
        {
            heartVisible = false;
-           //if(less than four lives)
-                //addlife();
-           //play sound effect?
+           if(numLives<4)
+                numLives++;
        }
 
        // monster movement
         monster1X -= addlvl1 + 20;
        if(!argowithShield && monster1X < argoX + 100 && monster1X + 100 > argoX && monster1Y < argoY + 100 && monster1Y + 100 > argoY) {
            resetMonster1 = true;
-           // decrease lives
+           numLives--;
        }
        if(monster1X + 150 < 0)
            resetMonster1 = true;
@@ -572,7 +571,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         monster2X -= addlvl1 + 20;
         if(!argowithShield && monster2X < argoX + 100 && monster2X + 100 > argoX && monster2Y < argoY + 100 && monster2Y + 100 > argoY) {
             resetMonster2 = true;
-            // decrease lives
+            numLives--;
         }
         if(monster2X + 150 < 0)
             resetMonster2 = true;
