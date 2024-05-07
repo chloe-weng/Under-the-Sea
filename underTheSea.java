@@ -158,7 +158,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         	{
         		drawLife1(g);
         	}
-        	else if(numLives==4)
+        	else if(numLives>=4)
         	{
         		drawLife1(g);
         		drawLife2(g);
