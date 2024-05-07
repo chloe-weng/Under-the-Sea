@@ -459,7 +459,8 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
        // resets monster even if not touching??
        if(!argowithShield && monster1X < argoX + 100 && monster1X + 100 > argoX && monster1Y < argoY + 100 && monster1Y + 100 > argoY) {
-           monster1X = 1400;
+           resetMonster1 = true;
+           
            // decrease lives
        }
 
