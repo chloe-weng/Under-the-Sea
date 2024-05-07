@@ -57,9 +57,11 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     
     // intro variables
     private Image[] nextArray;
-    private int nextIndex=0, timeInt=0;
+    private int nextIndex=0;
+    private double timeDec=60;
     private int mouseX, mouseY;
-    private boolean timeStart=false;
+    private boolean timeStart=false,timeEnd=false;
+    private int numLives=3;
 
     // monster variables
     private int monster1X, monster1Y, monster1Type;
@@ -138,11 +140,36 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         	drawWave3(g);
         	drawWave2(g);
         	drawWave1(g);
-
+        	
+        	// draw lives
+        	if(numLives==3)
+        	{
+        		drawLife1(g);
+        		drawLife2(g);
+            	drawLife3(g);
+        	}
+        	else if(numLives==2)
+        	{
+        		drawLife1(g);
+            	drawLife2(g);
+        	}
+        	else if(numLives==1)
+        	
+        	{
+        		drawLife1(g);
+        	}
+        	else if(numLives==4)
+        	{
+        		drawLife1(g);
+        		drawLife2(g);
+            	drawLife3(g);
+        		drawLife4(g);
+        	}
+        	
             // draw kraken and siren
             drawMonster1(g);
             drawMonster2(g);
-
+            
         	// scarlett
         	if(argowithShield)
         	{
@@ -155,6 +182,17 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
              // drawHeart (2)
             if(heartVisible){drawHeart(g);}
 
+        }
+        if(timeEnd)
+        {
+        	if(numLives<=0)
+        	{
+        		drawLose(g);
+        	}
+        	else
+        	{
+        		drawWin(g);
+        	}
         }
     }
 
@@ -195,7 +233,6 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         	}
         	else
         	{
-        		timeInt = 60;
         		timeStart = true;
         	}
         }
@@ -213,7 +250,24 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         catch(Exception e) {}
     	
     }
-    
+    public void drawWin(Graphics g)
+    {
+    	try
+    	{
+    		Image winScreen = ImageIO.read(new File("Win Screen.png"));
+    		g.drawImage(winScreen.getScaledInstance(1500,700,Image.SCALE_DEFAULT),0,0,null);
+    	}
+    	catch(Exception e) {}
+    }
+    public void drawLose(Graphics g)
+    {
+    	try
+    	{
+    		Image loseScreen = ImageIO.read(new File("Lose Screen.png"));
+    		g.drawImage(loseScreen.getScaledInstance(1500,700,Image.SCALE_DEFAULT),0,0,null);
+    	}
+    	catch(Exception e) {}
+    }
     public void drawArgo(Graphics g)
     {
         Image argoimg;
@@ -373,11 +427,63 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             }
         }
     }
-
+    
+    public void drawLife1(Graphics g)
+    {
+        Image life;
+        try{
+            life = ImageIO.read(new File("livesSprite.png"));
+            g.drawImage(life.getScaledInstance(30, 30, Image.SCALE_DEFAULT),50,50,null);
+        }
+        catch(Exception e) {}
+    
+    }
+    public void drawLife2(Graphics g)
+    {
+        Image life;
+        try{
+            life = ImageIO.read(new File("livesSprite.png"));
+            g.drawImage(life.getScaledInstance(30, 30, Image.SCALE_DEFAULT),100,50,null);
+        }
+        catch(Exception e) {}
+    
+    }
+    public void drawLife3(Graphics g)
+    {
+        Image life;
+        try{
+            life = ImageIO.read(new File("livesSprite.png"));
+            g.drawImage(life.getScaledInstance(30, 30, Image.SCALE_DEFAULT),150,50,null);
+        }
+        catch(Exception e) {}
+    
+    }
+    public void drawLife4(Graphics g)
+    {
+        Image life;
+        try{
+            life = ImageIO.read(new File("livesSprite.png"));
+            g.drawImage(life.getScaledInstance(30, 30, Image.SCALE_DEFAULT),200,50,null);
+        }
+        catch(Exception e) {}
+    
+    }
 
     public void actionPerformed(ActionEvent e)
     {
-        //argo movement
+    	//timer
+        
+    	if(timeStart)
+    	{
+    		timeDec-=0.5;
+    		if(timeDec<=0 || numLives==0)
+        	{
+        		timeEnd=true;
+        		timeStart=false;
+        	}
+    	}
+    	
+    	//argo movement
 
          argoX -= addlvl1;
          argoX -= addlvl1;
