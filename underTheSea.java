@@ -60,9 +60,11 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     
     // intro variables
     private Image[] nextArray;
-    private int nextIndex=0, timeInt=0;
+    private int nextIndex=0;
+    private double timeDec=60;
     private int mouseX, mouseY;
-    private boolean timeStart=false;
+    private boolean timeStart=false,timeEnd=false;
+    private int numLives=3;
     private Image cover, intro, instr1, lvl1, button;
 
     // monster variables
@@ -158,11 +160,36 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         	drawWave3(g);
         	drawWave2(g);
         	drawWave1(g);
-
+        	
+        	// draw lives
+        	if(numLives==3)
+        	{
+        		drawLife1(g);
+        		drawLife2(g);
+            	drawLife3(g);
+        	}
+        	else if(numLives==2)
+        	{
+        		drawLife1(g);
+            	drawLife2(g);
+        	}
+        	else if(numLives==1)
+        	
+        	{
+        		drawLife1(g);
+        	}
+        	else if(numLives>=4)
+        	{
+        		drawLife1(g);
+        		drawLife2(g);
+            	drawLife3(g);
+        		drawLife4(g);
+        	}
+        	
             // draw kraken and siren
             drawMonster1(g);
             drawMonster2(g);
-
+            
         	// scarlett
         	if(argowithShield)
         	{
@@ -175,6 +202,17 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
              // drawHeart (2)
             if(heartVisible){drawHeart(g);}
 
+        }
+        if(timeEnd)
+        {
+        	if(numLives<=0)
+        	{
+        		drawLose(g);
+        	}
+        	else
+        	{
+        		drawWin(g);
+        	}
         }
     }
 
@@ -207,7 +245,6 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         	}
         	else
         	{
-        		timeInt = 60;
         		timeStart = true;
         	}
     	
@@ -217,7 +254,24 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         g.drawImage(button.getScaledInstance(100,100,Image.SCALE_DEFAULT),1120,450,null);
     	
     }
-    
+    public void drawWin(Graphics g)
+    {
+    	try
+    	{
+    		Image winScreen = ImageIO.read(new File("Win Screen.png"));
+    		g.drawImage(winScreen.getScaledInstance(1500,700,Image.SCALE_DEFAULT),0,0,null);
+    	}
+    	catch(Exception e) {}
+    }
+    public void drawLose(Graphics g)
+    {
+    	try
+    	{
+    		Image loseScreen = ImageIO.read(new File("Lose Screen.png"));
+    		g.drawImage(loseScreen.getScaledInstance(1500,700,Image.SCALE_DEFAULT),0,0,null);
+    	}
+    	catch(Exception e) {}
+    }
     public void drawArgo(Graphics g)
     {
         g.drawImage(argo, argoX, argoY, 150,150,null);
@@ -356,24 +410,76 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             }
         }
     }
-
+    
+    public void drawLife1(Graphics g)
+    {
+        Image life;
+        try{
+            life = ImageIO.read(new File("livesSprite.png"));
+            g.drawImage(life.getScaledInstance(30, 30, Image.SCALE_DEFAULT),50,50,null);
+        }
+        catch(Exception e) {}
+    
+    }
+    public void drawLife2(Graphics g)
+    {
+        Image life;
+        try{
+            life = ImageIO.read(new File("livesSprite.png"));
+            g.drawImage(life.getScaledInstance(30, 30, Image.SCALE_DEFAULT),100,50,null);
+        }
+        catch(Exception e) {}
+    
+    }
+    public void drawLife3(Graphics g)
+    {
+        Image life;
+        try{
+            life = ImageIO.read(new File("livesSprite.png"));
+            g.drawImage(life.getScaledInstance(30, 30, Image.SCALE_DEFAULT),150,50,null);
+        }
+        catch(Exception e) {}
+    
+    }
+    public void drawLife4(Graphics g)
+    {
+        Image life;
+        try{
+            life = ImageIO.read(new File("livesSprite.png"));
+            g.drawImage(life.getScaledInstance(30, 30, Image.SCALE_DEFAULT),200,50,null);
+        }
+        catch(Exception e) {}
+    
+    }
 
     public void actionPerformed(ActionEvent e)
     {
-        //argo movement
+    	//timer
+        
+    	if(timeStart)
+    	{
+    		timeDec-=0.15;
+    		if(timeDec<=0 || numLives==0)
+        	{
+        		timeEnd=true;
+        		timeStart=false;
+        	}
+    	}
+    	
+    	//argo movement
 
          argoX -= addlvl1;
          argoX -= addlvl1;
          if(argoX< -100||argoX>= 1450)
             {
-                //loselife():
+                numLives--;
                 argoX = 650;
                 argoY = 250;
             }    
                 
         if(argoY< -100|argoY>= 650)
             {
-                //loselife():
+                numLives--;
                 argoX = 650;
                 argoY = 250;
             }
@@ -393,7 +499,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         heartpX -= addlvl1;
         
         //shield powerup mechanics
-        if(!shieldVisible && Math.random() < 0.001) 
+        if(!shieldVisible && Math.random() < 0.008) 
         { 
             shieldX = 1450;
             shieldY = (int) (Math.random() * 650);
@@ -410,14 +516,14 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             shieldVisible = false;
             argowithShield = true;
             shieldTime = System.currentTimeMillis();
-            //play sound effect?
+            
         }
         if (argowithShield && System.currentTimeMillis() - shieldTime >= 5000) {
             argowithShield = false;
         }
 
        //heart powerup mechanics
-       if(!heartVisible && Math.random() < 0.001) 
+       if(!heartVisible && Math.random() < 0.007) 
        { 
            heartpX = 1450;
            heartpY = (int) (Math.random() * 650);
@@ -432,16 +538,15 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
        if(heartVisible && (touchingPowerup(heartpX, heartpY, argoX, argoY)))
        {
            heartVisible = false;
-           //if(less than four lives)
-                //addlife();
-           //play sound effect?
+           if(numLives<4)
+                numLives++;
        }
 
        // monster movement
         monster1X -= addlvl1 + 20;
        if(!argowithShield && monster1X < argoX + 100 && monster1X + 100 > argoX && monster1Y < argoY + 100 && monster1Y + 100 > argoY) {
            resetMonster1 = true;
-           // decrease lives
+           numLives--;
        }
        if(monster1X + 150 < 0)
            resetMonster1 = true;
@@ -449,7 +554,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         monster2X -= addlvl1 + 20;
         if(!argowithShield && monster2X < argoX + 100 && monster2X + 100 > argoX && monster2Y < argoY + 100 && monster2Y + 100 > argoY) {
             resetMonster2 = true;
-            // decrease lives
+            numLives--;
         }
         if(monster2X + 150 < 0)
             resetMonster2 = true;
