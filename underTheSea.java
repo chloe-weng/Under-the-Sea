@@ -71,7 +71,10 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     private int monster1X, monster1Y, monster1Type;
     private int monster2X, monster2Y, monster2Type;
     private boolean resetMonster1, resetMonster2;
-
+    
+    // winlose
+    private Image loseScreen,winScreen;
+    
     // lives
     private Image life1, life2, life3, life4;
 
@@ -119,6 +122,10 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             life2 = ImageIO.read(new File("livesSprite.png"));
             life3 = ImageIO.read(new File("livesSprite.png"));
             life4 = ImageIO.read(new File("livesSprite.png"));
+            
+            //winlose
+            loseScreen = ImageIO.read(new File("Lose Screen.png"));
+            winScreen = ImageIO.read(new File("Win Screen.png"));
 
         }
         catch (Exception e) {}
@@ -265,21 +272,12 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     }
     public void drawWin(Graphics g)
     {
-    	try
-    	{
-    		Image winScreen = ImageIO.read(new File("Win Screen.png"));
-    		g.drawImage(winScreen.getScaledInstance(1500,700,Image.SCALE_DEFAULT),0,0,null);
-    	}
-    	catch(Exception e) {}
+    	g.drawImage(winScreen.getScaledInstance(1500,700,Image.SCALE_DEFAULT),0,0,null);
+    	
     }
     public void drawLose(Graphics g)
-    {
-    	try
-    	{
-    		Image loseScreen = ImageIO.read(new File("Lose Screen.png"));
-    		g.drawImage(loseScreen.getScaledInstance(1500,700,Image.SCALE_DEFAULT),0,0,null);
-    	}
-    	catch(Exception e) {}
+    {    		
+    	g.drawImage(loseScreen.getScaledInstance(1500,700,Image.SCALE_DEFAULT),0,0,null);	
     }
     public void drawArgo(Graphics g)
     {
