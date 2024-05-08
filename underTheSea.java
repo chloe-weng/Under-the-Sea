@@ -44,6 +44,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 {
     private Timer time;
     private int argoX, argoY;
+    private Image argo;
     private int addlvl1;
 
     // waves bg variables
@@ -54,6 +55,8 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     private int shieldX, shieldY, heartpX, heartpY;
     private boolean shieldVisible, heartVisible, argowithShield;
     private long shieldTime;
+    private Image powerup;
+    private Image argoWithShield;
     
     // intro variables
     private Image[] nextArray;
@@ -62,6 +65,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     private int mouseX, mouseY;
     private boolean timeStart=false,timeEnd=false;
     private int numLives=3;
+    private Image cover, intro, instr1, lvl1, button;
 
     // monster variables
     private int monster1X, monster1Y, monster1Type;
@@ -83,6 +87,14 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
         // image initialization
         try {
+            // intro images
+            cover = ImageIO.read(new File("Cover.png"));
+            intro = ImageIO.read(new File("Introduction.png"));
+            instr1 = ImageIO.read(new File("Instructions Lvl 1.png"));
+            lvl1 = ImageIO.read(new File("Level 1.png"));
+            button = ImageIO.read(new File("nextSprite.png"));
+
+            // wave images
             wave1_1 = ImageIO.read(new File("wavesSprite.png"));
             wave1_2 = ImageIO.read(new File("wavesSprite.png"));
             wave2_1 = ImageIO.read(new File("wavesSprite.png"));
@@ -91,6 +103,14 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             wave3_2 = ImageIO.read(new File("wavesSprite.png"));
             wave4_1 = ImageIO.read(new File("wavesSprite.png"));
             wave4_2 = ImageIO.read(new File("wavesSprite.png"));
+
+            // argo
+            argo = ImageIO.read(new File("argoSprite.png"));
+
+            // powerups
+            powerup = ImageIO.read(new File("powerupSprite.png"));
+            argoWithShield = ImageIO.read(new File("argoWithShieldSprite.png"));
+
         }
         catch (Exception e) {}
 
@@ -198,14 +218,6 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
     public void drawIntro1(Graphics g)
     {
-    	try
-        {
-        	Image cover = ImageIO.read(new File("Cover.png"));
-        	Image intro = ImageIO.read(new File("Introduction.png"));
-        	Image instr1 = ImageIO.read(new File("Instructions Lvl 1.png"));
-        	Image lvl1 = ImageIO.read(new File("Level 1.png"));
-        	Image button = ImageIO.read(new File("nextSprite.png"));
-
         	nextArray = new Image[4];
         	nextArray[0] = cover.getScaledInstance(1500,700,Image.SCALE_DEFAULT);
         	nextArray[1] = intro.getScaledInstance(1500,700,Image.SCALE_DEFAULT);
@@ -235,19 +247,11 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         	{
         		timeStart = true;
         	}
-        }
-        catch(Exception e) {}
     	
     }
     public void drawButton(Graphics g)
     {
-    	try
-        {
-        	Image button = ImageIO.read(new File("nextSprite.png"));
-        	g.drawImage(button.getScaledInstance(100,100,Image.SCALE_DEFAULT),1120,450,null);
-        	
-        }
-        catch(Exception e) {}
+        g.drawImage(button.getScaledInstance(100,100,Image.SCALE_DEFAULT),1120,450,null);
     	
     }
     public void drawWin(Graphics g)
@@ -270,13 +274,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     }
     public void drawArgo(Graphics g)
     {
-        Image argoimg;
-        try{
-            argoimg = ImageIO.read(new File("argoSprite.png"));
-            g.drawImage(argoimg, argoX, argoY, 150,150,null);
-        }
-        catch(Exception e) {}
-    
+        g.drawImage(argo, argoX, argoY, 150,150,null);
     }
 
     public void drawWave1(Graphics g) {
@@ -301,34 +299,19 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
     public void drawShield(Graphics g)
     {
-        Image powerup;
-        try{
-            powerup = ImageIO.read(new File("powerupSprite.png"));
-            g.drawImage(powerup, shieldX, shieldY, 50,50,null);
-        }
-        catch(Exception e) {}
+        g.drawImage(powerup, shieldX, shieldY, 50,50,null);
     
     }
 
     public void drawHeart(Graphics g)
     {
-        Image powerup;
-        try{
-            powerup = ImageIO.read(new File("powerupSprite.png"));
-            g.drawImage(powerup, heartpX, heartpY, 50,50,null);
-        }
-        catch(Exception e) {}
+        g.drawImage(powerup, heartpX, heartpY, 50,50,null);
     
     }
 
     public void drawArgoWithShield(Graphics g)
     {
-        Image argowithshield;
-        try{
-            argowithshield = ImageIO.read(new File("argoWithShieldSprite.png"));
-            g.drawImage(argowithshield, argoX, argoY, 200,200,null);
-        }
-        catch(Exception e) {}
+        g.drawImage(argoWithShield, argoX, argoY, 200,200,null);
     }
 
     private boolean touchingPowerup(int pwpX, int pwpY, int argoX, int argoY) {
