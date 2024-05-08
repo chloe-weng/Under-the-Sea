@@ -72,6 +72,9 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     private int monster2X, monster2Y, monster2Type;
     private boolean resetMonster1, resetMonster2;
 
+    // lives
+    private Image life1, life2, life3, life4;
+
     MyPanelb()
     {
         time = new Timer(5, this); //sets delay to 15 millis and calls the actionPerformed of this class.
@@ -111,6 +114,12 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             powerup = ImageIO.read(new File("powerupSprite.png"));
             argoWithShield = ImageIO.read(new File("argoWithShieldSprite.png"));
 
+            // lives
+            life1 = ImageIO.read(new File("livesSprite.png"));
+            life2 = ImageIO.read(new File("livesSprite.png"));
+            life3 = ImageIO.read(new File("livesSprite.png"));
+            life4 = ImageIO.read(new File("livesSprite.png"));
+
         }
         catch (Exception e) {}
 
@@ -137,7 +146,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         monster1Y = monster2Y = 0;
         monster1Type = monster2Type = 0;
         resetMonster1 = resetMonster2 = true;
-        
+
 
         addMouseListener(this);
         setFocusable(true);
@@ -413,49 +422,23 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     
     public void drawLife1(Graphics g)
     {
-        Image life;
-        try{
-            life = ImageIO.read(new File("livesSprite.png"));
-            g.drawImage(life.getScaledInstance(30, 30, Image.SCALE_DEFAULT),50,50,null);
-        }
-        catch(Exception e) {}
-    
+        g.drawImage(life1.getScaledInstance(30, 30, Image.SCALE_DEFAULT),50,50,null);
     }
     public void drawLife2(Graphics g)
     {
-        Image life;
-        try{
-            life = ImageIO.read(new File("livesSprite.png"));
-            g.drawImage(life.getScaledInstance(30, 30, Image.SCALE_DEFAULT),100,50,null);
-        }
-        catch(Exception e) {}
-    
+        g.drawImage(life2.getScaledInstance(30, 30, Image.SCALE_DEFAULT),100,50,null);
     }
     public void drawLife3(Graphics g)
     {
-        Image life;
-        try{
-            life = ImageIO.read(new File("livesSprite.png"));
-            g.drawImage(life.getScaledInstance(30, 30, Image.SCALE_DEFAULT),150,50,null);
-        }
-        catch(Exception e) {}
-    
+        g.drawImage(life3.getScaledInstance(30, 30, Image.SCALE_DEFAULT),150,50,null);
     }
     public void drawLife4(Graphics g)
     {
-        Image life;
-        try{
-            life = ImageIO.read(new File("livesSprite.png"));
-            g.drawImage(life.getScaledInstance(30, 30, Image.SCALE_DEFAULT),200,50,null);
-        }
-        catch(Exception e) {}
-    
+        g.drawImage(life4.getScaledInstance(30, 30, Image.SCALE_DEFAULT),200,50,null);
     }
 
     public void actionPerformed(ActionEvent e)
     {
-    	//timer
-        
     	if(timeStart)
     	{
     		timeDec-=0.15;
@@ -464,20 +447,19 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         		timeEnd=true;
         		timeStart=false;
         	}
-    	}
-    	
-    	//argo movement
 
-         argoX -= addlvl1;
-         argoX -= addlvl1;
-         if(argoX< -100||argoX>= 1450)
+            //argo movement
+
+            argoX -= addlvl1;
+            argoX -= addlvl1;
+            if(argoX< -100||argoX>= 1450)
             {
                 numLives--;
                 argoX = 650;
                 argoY = 250;
-            }    
-                
-        if(argoY< -100|argoY>= 650)
+            }
+
+            if(argoY< -100|argoY>= 650)
             {
                 numLives--;
                 argoX = 650;
@@ -485,79 +467,81 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             }
 
 
-        //  waves bg movement
-        wave1X -= addlvl1;
-        if(wave1X < -1496)
-            wave1X = 0;
+            //  waves bg movement
+            wave1X -= addlvl1;
+            if(wave1X < -1496)
+                wave1X = 0;
 
-        wave2X += addlvl1;
-        if(wave2X > 1500)
-            wave2X = 0;
+            wave2X += addlvl1;
+            if(wave2X > 1500)
+                wave2X = 0;
 
-        //powerup movement
-        shieldX -= addlvl1;
-        heartpX -= addlvl1;
-        
-        //shield powerup mechanics
-        if(!shieldVisible && Math.random() < 0.008) 
-        { 
-            shieldX = 1450;
-            shieldY = (int) (Math.random() * 650);
-            shieldVisible = true;
-        }
+            //powerup movement
+            shieldX -= addlvl1;
+            heartpX -= addlvl1;
 
-        if(shieldVisible && shieldX < -50)
+            //shield powerup mechanics
+            if(!shieldVisible && Math.random() < 0.008)
+            {
+                shieldX = 1450;
+                shieldY = (int) (Math.random() * 650);
+                shieldVisible = true;
+            }
+
+            if(shieldVisible && shieldX < -50)
             {
                 shieldVisible = false;
             }
 
-        if(shieldVisible && (touchingPowerup(shieldX, shieldY, argoX, argoY)))
-        {
-            shieldVisible = false;
-            argowithShield = true;
-            shieldTime = System.currentTimeMillis();
-            
-        }
-        if (argowithShield && System.currentTimeMillis() - shieldTime >= 5000) {
-            argowithShield = false;
-        }
+            if(shieldVisible && (touchingPowerup(shieldX, shieldY, argoX, argoY)))
+            {
+                shieldVisible = false;
+                argowithShield = true;
+                shieldTime = System.currentTimeMillis();
 
-       //heart powerup mechanics
-       if(!heartVisible && Math.random() < 0.007) 
-       { 
-           heartpX = 1450;
-           heartpY = (int) (Math.random() * 650);
-           heartVisible = true;
-       }
+            }
+            if (argowithShield && System.currentTimeMillis() - shieldTime >= 5000) {
+                argowithShield = false;
+            }
 
-       if(heartVisible && heartpX < -50)
-           {
-               heartVisible = false;
-           }
+            //heart powerup mechanics
+            if(!heartVisible && Math.random() < 0.007)
+            {
+                heartpX = 1450;
+                heartpY = (int) (Math.random() * 650);
+                heartVisible = true;
+            }
 
-       if(heartVisible && (touchingPowerup(heartpX, heartpY, argoX, argoY)))
-       {
-           heartVisible = false;
-           if(numLives<4)
-                numLives++;
-       }
+            if(heartVisible && heartpX < -50)
+            {
+                heartVisible = false;
+            }
 
-       // monster movement
-        monster1X -= addlvl1 + 20;
-       if(!argowithShield && monster1X < argoX + 100 && monster1X + 100 > argoX && monster1Y < argoY + 100 && monster1Y + 100 > argoY) {
-           resetMonster1 = true;
-           numLives--;
-       }
-       if(monster1X + 150 < 0)
-           resetMonster1 = true;
+            if(heartVisible && (touchingPowerup(heartpX, heartpY, argoX, argoY)))
+            {
+                heartVisible = false;
+                if(numLives<4)
+                    numLives++;
+            }
 
-        monster2X -= addlvl1 + 20;
-        if(!argowithShield && monster2X < argoX + 100 && monster2X + 100 > argoX && monster2Y < argoY + 100 && monster2Y + 100 > argoY) {
-            resetMonster2 = true;
-            numLives--;
-        }
-        if(monster2X + 150 < 0)
-            resetMonster2 = true;
+            // monster movement
+            monster1X -= addlvl1 + 20;
+            if(!argowithShield && monster1X < argoX + 100 && monster1X + 100 > argoX && monster1Y < argoY + 100 && monster1Y + 100 > argoY) {
+                resetMonster1 = true;
+                numLives--;
+            }
+            if(monster1X + 150 < 0)
+                resetMonster1 = true;
+
+            monster2X -= addlvl1 + 20;
+            if(!argowithShield && monster2X < argoX + 100 && monster2X + 100 > argoX && monster2Y < argoY + 100 && monster2Y + 100 > argoY) {
+                resetMonster2 = true;
+                numLives--;
+            }
+            if(monster2X + 150 < 0)
+                resetMonster2 = true;
+    	}
+        
 
         repaint();
     }
