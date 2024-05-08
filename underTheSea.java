@@ -142,7 +142,8 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         argowithShield = false;
 
         // monster variables
-        monster1X = monster2X = 1300;
+        monster1X = 1300;
+        monster2X = 1450;
         monster1Y = monster2Y = 0;
         monster1Type = monster2Type = 0;
         resetMonster1 = resetMonster2 = true;
@@ -345,14 +346,14 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             if(monster1Type == 1) {
                 try {
                     monster = ImageIO.read(new File("krakenSprite.png"));
-                    g.drawImage(monster, monster1X, monster1Y + 10, 150, 150, null);
+                    g.drawImage(monster, monster1X, monster1Y - 10, 170, 170, null);
                 }
                 catch(Exception e) {}
             }
             else {
                 try {
                     monster = ImageIO.read(new File("sirenSprite.png"));
-                    g.drawImage(monster, monster1X, monster1Y + 20, 150, 150, null);
+                    g.drawImage(monster, monster1X, monster1Y - 17, 190, 190, null);
                 }
                 catch(Exception e) {}
             }
@@ -361,19 +362,20 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             if(monster1Type == 1) {
                 try {
                     monster = ImageIO.read(new File("krakenSprite.png"));
-                    g.drawImage(monster, monster1X, monster1Y + 10, 150, 150, null);
+                    g.drawImage(monster, monster1X, monster1Y - 10, 170, 170, null);
                 }
                 catch(Exception e) {}
             }
             else {
                 try {
                     monster = ImageIO.read(new File("sirenSprite.png"));
-                    g.drawImage(monster, monster1X, monster1Y + 20, 150, 150, null);
+                    g.drawImage(monster, monster1X, monster1Y - 17, 190, 190, null);
                 }
                 catch(Exception e) {}
             }
         }
     }
+
 
     private void drawMonster2(Graphics g) {
         Image monster;
@@ -384,20 +386,20 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             int chooseY = (int) (Math.random() * 4) + 1;
             // below MIGHT change depending on height of the sprite, might need to crop siren and reupload to git
             monster2Y = randY[chooseY - 1];
-            monster2X = 1300;
+            monster2X = 1450;
 
             monster2Type = (int) (Math.random() * 2) + 1;
             if(monster2Type == 1) {
                 try {
                     monster = ImageIO.read(new File("krakenSprite.png"));
-                    g.drawImage(monster, monster2X, monster2Y + 10, 150, 150, null);
+                    g.drawImage(monster, monster2X, monster2Y - 10, 170, 170, null);
                 }
                 catch(Exception e) {}
             }
             else {
                 try {
                     monster = ImageIO.read(new File("sirenSprite.png"));
-                    g.drawImage(monster, monster2X, monster2Y + 20, 150, 150, null);
+                    g.drawImage(monster, monster2X, monster2Y - 17, 190, 190, null);
                 }
                 catch(Exception e) {}
             }
@@ -406,19 +408,21 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             if(monster2Type == 1) {
                 try {
                     monster = ImageIO.read(new File("krakenSprite.png"));
-                    g.drawImage(monster, monster2X, monster2Y + 10, 150, 150, null);
+                    g.drawImage(monster, monster2X, monster2Y - 10, 170, 170, null);
                 }
                 catch(Exception e) {}
             }
             else {
                 try {
                     monster = ImageIO.read(new File("sirenSprite.png"));
-                    g.drawImage(monster, monster2X, monster2Y + 20, 150, 150, null);
+                    g.drawImage(monster, monster2X, monster2Y - 17, 190, 190, null);
                 }
                 catch(Exception e) {}
             }
         }
     }
+
+
     
     public void drawLife1(Graphics g)
     {
@@ -541,7 +545,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             if(monster2X + 150 < 0)
                 resetMonster2 = true;
     	}
-        
+
 
         repaint();
     }
