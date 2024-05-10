@@ -232,7 +232,19 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         	}
         }
     }
-
+    //chloe workspace
+    
+    
+    
+    //jessica workspace
+    
+    
+    
+    //scarlett workspace
+    
+    
+    
+    
     public void drawIntro1(Graphics g)
     {
         	nextArray = new Image[4];
