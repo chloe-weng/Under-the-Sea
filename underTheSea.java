@@ -234,15 +234,26 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     }
     //chloe workspace
     
-    
+    	//intro
+    	//new timer
+    	//reset lives
+    	//music
+    	//sound effects
     
     //jessica workspace
     
-    
+    	//monsters (2 more)
+    	//increase speed of monsters
+    	//add boulder?
+    	//call waves again (make faster)
+    	//sound effects
     
     //scarlett workspace
     
-    
+    	//call argo again
+    	//powerups + bad powerup
+    	//make argo faster
+    	//sound effects
     
     
     public void drawIntro1(Graphics g)
