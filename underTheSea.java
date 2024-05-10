@@ -250,23 +250,23 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
                 	drawWave1(g);
                 	
                 	// draw lives
-                	if(numLives==3)
+                	if(numLives2==3)
                 	{
                 		drawLife1(g);
                 		drawLife2(g);
                     	drawLife3(g);
                 	}
-                	else if(numLives==2)
+                	else if(numLives2==2)
                 	{
                 		drawLife1(g);
                     	drawLife2(g);
                 	}
-                	else if(numLives==1)
+                	else if(numLives2==1)
                 	
                 	{
                 		drawLife1(g);
                 	}
-                	else if(numLives>=4)
+                	else if(numLives2>=4)
                 	{
                 		drawLife1(g);
                 		drawLife2(g);
@@ -555,18 +555,126 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
     public void actionPerformed(ActionEvent e)
     {
+    	//level 1
+    	//timer
+    	
     	if(timeStart)
     	{
     		timeDec-=0.15;
+    		
     		if(timeDec<=0 || numLives==0)
-        	{
-        		timeEnd=true;
-        		timeStart=false;
-        	}
+    		{
+    			timeEnd=true;
+    			timeStart=false;
+    		}
 
             //argo movement
 
             argoX -= addlvl1;
+            argoX -= addlvl1;
+            if(argoX< -100||argoX>= 1450)
+            {
+                numLives--;
+                argoX = 650;
+                argoY = 250;
+            }
+
+            if(argoY< -100|argoY>= 650)
+            {
+                numLives--;
+                argoX = 650;
+                argoY = 250;
+            }
+
+
+            //  waves bg movement
+            wave1X -= addlvl1;
+            if(wave1X < -1496)
+                wave1X = 0;
+
+            wave2X += addlvl1;
+            if(wave2X > 1500)
+                wave2X = 0;
+
+            //powerup movement
+            shieldX -= addlvl1;
+            heartpX -= addlvl1;
+
+            //shield powerup mechanics
+            if(!shieldVisible && Math.random() < 0.008)
+            {
+                shieldX = 1450;
+                shieldY = (int) (Math.random() * 650);
+                shieldVisible = true;
+            }
+
+            if(shieldVisible && shieldX < -50)
+            {
+                shieldVisible = false;
+            }
+
+            if(shieldVisible && (touchingPowerup(shieldX, shieldY, argoX, argoY)))
+            {
+                shieldVisible = false;
+                argowithShield = true;
+                shieldTime = System.currentTimeMillis();
+
+            }
+            if (argowithShield && System.currentTimeMillis() - shieldTime >= 5000) {
+                argowithShield = false;
+            }
+
+            //heart powerup mechanics
+            if(!heartVisible && Math.random() < 0.007)
+            {
+                heartpX = 1450;
+                heartpY = (int) (Math.random() * 650);
+                heartVisible = true;
+            }
+
+            if(heartVisible && heartpX < -50)
+            {
+                heartVisible = false;
+            }
+
+            if(heartVisible && (touchingPowerup(heartpX, heartpY, argoX, argoY)))
+            {
+                heartVisible = false;
+                if(numLives<4)
+                    numLives++;
+            }
+
+            // monster movement
+            monster1X -= addlvl1 + 20;
+            if(!argowithShield && monster1X < argoX + 100 && monster1X + 100 > argoX && monster1Y < argoY + 100 && monster1Y + 100 > argoY) {
+                resetMonster1 = true;
+                numLives--;
+            }
+            if(monster1X + 150 < 0)
+                resetMonster1 = true;
+
+            monster2X -= addlvl1 + 20;
+            if(!argowithShield && monster2X < argoX + 100 && monster2X + 100 > argoX && monster2Y < argoY + 100 && monster2Y + 100 > argoY) {
+                resetMonster2 = true;
+                numLives--;
+            }
+            if(monster2X + 150 < 0)
+                resetMonster2 = true;
+    	}
+    	
+    	//level 2
+    	if(timeStart2)
+    	{
+    		timeDec2-=0.15;
+    		
+    		if(timeDec2<=0 || numLives2==0)
+    		{
+    			timeEnd2=true;
+    			timeStart2=false;
+    		}
+    		
+    		//argo movement
+    		argoX -= addlvl1;
             argoX -= addlvl1;
             if(argoX< -100||argoX>= 1450)
             {
