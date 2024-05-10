@@ -66,6 +66,13 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     private boolean timeStart=false,timeEnd=false;
     private int numLives=3;
     private Image cover, intro, instr1, lvl1, button;
+    
+    private Image[] nextArray2;
+    private int nextIndex2=0;
+    private double timeDec2=60;
+    private boolean timeStart2=false,timeEnd2=false;
+    private int numLives2=3;
+    private Image instr2, lvl2,button2;
 
     // monster variables
     private int monster1X, monster1Y, monster1Type;
@@ -94,11 +101,15 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         // image initialization
         try {
             // intro images
-            cover = ImageIO.read(new File("Cover.png"));
+        	cover = ImageIO.read(new File("Cover.png"));
             intro = ImageIO.read(new File("Introduction.png"));
             instr1 = ImageIO.read(new File("Instructions Lvl 1.png"));
             lvl1 = ImageIO.read(new File("Level 1.png"));
             button = ImageIO.read(new File("nextSprite.png"));
+            
+            instr2 = ImageIO.read(new File("Instructions Lvl 2.png"));
+            lvl2 = ImageIO.read(new File("Level 2.png"));
+            button2 = ImageIO.read(new File("nextSprite.png"));
 
             // wave images
             wave1_1 = ImageIO.read(new File("wavesSprite.png"));
@@ -228,7 +239,57 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         	}
         	else
         	{
-        		drawWin(g);
+        		drawIntro2(g);
+        		drawButton2(g);
+        		if(timeStart2)
+        		{
+        			// draw background waves
+                	drawWave4(g);
+                	drawWave3(g);
+                	drawWave2(g);
+                	drawWave1(g);
+                	
+                	// draw lives
+                	if(numLives==3)
+                	{
+                		drawLife1(g);
+                		drawLife2(g);
+                    	drawLife3(g);
+                	}
+                	else if(numLives==2)
+                	{
+                		drawLife1(g);
+                    	drawLife2(g);
+                	}
+                	else if(numLives==1)
+                	
+                	{
+                		drawLife1(g);
+                	}
+                	else if(numLives>=4)
+                	{
+                		drawLife1(g);
+                		drawLife2(g);
+                    	drawLife3(g);
+                		drawLife4(g);
+                	}
+                	
+                    // draw kraken and siren
+                    drawMonster1(g);
+                    drawMonster2(g);
+                    
+                	// scarlett
+                	if(argowithShield)
+                	{
+                		drawArgoWithShield(g);
+                	}
+                 	else drawArgo(g);
+
+                     if(shieldVisible){drawShield(g);}
+            
+                     // drawHeart (2)
+                    if(heartVisible){drawHeart(g);}
+        		}
         	}
         }
     }
@@ -239,6 +300,31 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     	//reset lives
     	//music
     	//sound effects
+    
+    public void drawIntro2(Graphics g)
+    {
+        nextArray2 = new Image[2];
+       	nextArray2[0] = instr2.getScaledInstance(1500,700,Image.SCALE_DEFAULT);
+       	nextArray2[1] = lvl2.getScaledInstance(1500,700,Image.SCALE_DEFAULT);
+       	
+       	g.drawImage(button2.getScaledInstance(100,100,Image.SCALE_DEFAULT),1350,500,null);
+        	
+        	
+       	if(nextIndex2==0)
+       	{
+       		g.drawImage(nextArray2[0],0,0,null);
+    	}
+        else if(nextIndex2==1)
+       	{
+       		g.drawImage(nextArray2[1],0,0,null);
+       	}
+        else
+        {
+        	timeStart2 = true;
+        	timeStart=false;
+        }
+    	
+    }
     
     //jessica workspace
     
@@ -292,6 +378,11 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     public void drawButton(Graphics g)
     {
         g.drawImage(button.getScaledInstance(100,100,Image.SCALE_DEFAULT),1120,450,null);
+    	
+    }
+    public void drawButton2(Graphics g)
+    {
+        g.drawImage(button2.getScaledInstance(100,100,Image.SCALE_DEFAULT),1120,450,null);
     	
     }
     public void drawWin(Graphics g)
@@ -598,6 +689,10 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
          if(mouseX>=1120 && mouseX<=1220 && mouseY>=450 && mouseY<=550)
          {
          	nextIndex++;
+         }
+         if(timeEnd && mouseX>=1120 && mouseX<=1220 && mouseY>=450 && mouseY<=550)
+         {
+         	nextIndex2++;
          }
          
 
