@@ -290,6 +290,17 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
                      // drawHeart (2)
                     if(heartVisible){drawHeart(g);}
         		}
+        		if(timeEnd2)
+        		{
+        			if(numLives2>0)
+        			{
+        				drawWin(g);
+        			}
+        			else
+        			{
+        				drawLose(g);
+        			}
+        		}
         	}
         }
     }
@@ -678,14 +689,14 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             argoX -= addlvl1;
             if(argoX< -100||argoX>= 1450)
             {
-                numLives--;
+                numLives2--;
                 argoX = 650;
                 argoY = 250;
             }
 
             if(argoY< -100|argoY>= 650)
             {
-                numLives--;
+                numLives2--;
                 argoX = 650;
                 argoY = 250;
             }
@@ -744,15 +755,15 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             if(heartVisible && (touchingPowerup(heartpX, heartpY, argoX, argoY)))
             {
                 heartVisible = false;
-                if(numLives<4)
-                    numLives++;
+                if(numLives2<4)
+                    numLives2++;
             }
 
             // monster movement
             monster1X -= addlvl1 + 20;
             if(!argowithShield && monster1X < argoX + 100 && monster1X + 100 > argoX && monster1Y < argoY + 100 && monster1Y + 100 > argoY) {
                 resetMonster1 = true;
-                numLives--;
+                numLives2--;
             }
             if(monster1X + 150 < 0)
                 resetMonster1 = true;
@@ -760,7 +771,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             monster2X -= addlvl1 + 20;
             if(!argowithShield && monster2X < argoX + 100 && monster2X + 100 > argoX && monster2Y < argoY + 100 && monster2Y + 100 > argoY) {
                 resetMonster2 = true;
-                numLives--;
+                numLives2--;
             }
             if(monster2X + 150 < 0)
                 resetMonster2 = true;
