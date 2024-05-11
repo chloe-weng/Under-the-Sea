@@ -568,17 +568,12 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     public void actionPerformed(ActionEvent e)
     {
 
-        if(timeStart)
-    	{
-            
-    		timeDec-=0.04;
-
     	//level 1
     	//timer
     	
     	if(timeStart)
     	{
-    		timeDec-=0.15;
+    		timeDec-=0.05;
     		
 
     		if(timeDec<=0 || numLives==0)
@@ -684,7 +679,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     	//level 2
     	if(timeStart2)
     	{
-    		timeDec2-=0.15;
+    		timeDec2-=0.05;
     		
     		if(timeDec2<=0 || numLives2==0)
     		{
@@ -784,10 +779,8 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             if(monster2X + 150 < 0)
                 resetMonster2 = true;
     	}
-
-
         repaint();
-        }
+        
     }
 
 
