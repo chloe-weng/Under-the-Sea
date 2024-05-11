@@ -66,13 +66,6 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     private boolean timeStart=false,timeEnd=false;
     private int numLives=3;
     private Image cover, intro, instr1, lvl1, button;
-    
-    private Image[] nextArray2;
-    private int nextIndex2=0;
-    private double timeDec2=60;
-    private boolean timeStart2=false,timeEnd2=false;
-    private int numLives2=3;
-    private Image instr2, lvl2,button2;
 
     // monster variables
     private int monster1X, monster1Y, monster1Type;
@@ -103,16 +96,12 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         
         try {
             // intro images
-        	cover = ImageIO.read(new File("Cover.png"));
+            cover = ImageIO.read(new File("Cover.png"));
             intro = ImageIO.read(new File("Introduction.png"));
             instr1 = ImageIO.read(new File("Instructions Lvl 1.png"));
             lvl1 = ImageIO.read(new File("Level 1.png"));
             button = ImageIO.read(new File("nextSprite.png"));
-
-            instr2 = ImageIO.read(new File("Instructions Lvl 2.png"));
-            lvl2 = ImageIO.read(new File("Level 2.png"));
-            button2 = ImageIO.read(new File("nextSprite.png"));
-
+            
             // wave images
             wave1_1 = ImageIO.read(new File("wavesSprite.png"));
             wave1_2 = ImageIO.read(new File("wavesSprite.png"));
@@ -241,120 +230,11 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         	}
         	else
         	{
-        		drawIntro2(g);
-        		drawButton2(g);
-        		if(timeStart2)
-        		{
-        			// draw background waves
-                	drawWave4(g);
-                	drawWave3(g);
-                	drawWave2(g);
-                	drawWave1(g);
-                	
-                	// draw lives
-                	if(numLives2==3)
-                	{
-                		drawLife1(g);
-                		drawLife2(g);
-                    	drawLife3(g);
-                	}
-                	else if(numLives2==2)
-                	{
-                		drawLife1(g);
-                    	drawLife2(g);
-                	}
-                	else if(numLives2==1)
-                	
-                	{
-                		drawLife1(g);
-                	}
-                	else if(numLives2>=4)
-                	{
-                		drawLife1(g);
-                		drawLife2(g);
-                    	drawLife3(g);
-                		drawLife4(g);
-                	}
-                	
-                    // draw kraken and siren
-                    drawMonster1(g);
-                    drawMonster2(g);
-                    
-                	// scarlett
-                	if(argowithShield)
-                	{
-                		drawArgoWithShield(g);
-                	}
-                 	else drawArgo(g);
-
-                     if(shieldVisible){drawShield(g);}
-            
-                     // drawHeart (2)
-                    if(heartVisible){drawHeart(g);}
-        		}
-        		if(timeEnd2)
-        		{
-        			if(numLives2>0)
-        			{
-        				drawWin(g);
-        			}
-        			else
-        			{
-        				drawLose(g);
-        			}
-        		}
+        		drawWin(g);
         	}
         }
     }
-    //chloe workspace
-    
-    	//intro
-    	//new timer
-    	//reset lives
-    	//music
-    	//sound effects
-    
-    public void drawIntro2(Graphics g)
-    {
-        nextArray2 = new Image[2];
-       	nextArray2[0] = instr2.getScaledInstance(1500,700,Image.SCALE_DEFAULT);
-       	nextArray2[1] = lvl2.getScaledInstance(1500,700,Image.SCALE_DEFAULT);
-       	
-       	g.drawImage(button2.getScaledInstance(100,100,Image.SCALE_DEFAULT),1350,500,null);
-        	
-        	
-       	if(nextIndex2==0)
-       	{
-       		g.drawImage(nextArray2[0],0,0,null);
-    	}
-        else if(nextIndex2==1)
-       	{
-       		g.drawImage(nextArray2[1],0,0,null);
-       	}
-        else
-        {
-        	timeStart2 = true;
-        	timeStart=false;
-        }
-    	
-    }
-    
-    //jessica workspace
-    
-    	//monsters (2 more)
-    	//increase speed of monsters
-    	//add boulder?
-    	//call waves again (make faster)
-    	//sound effects
-    
-    //scarlett workspace
-    
-    	//call argo again
-    	//powerups + bad powerup
-    	//make argo faster
-    	//sound effects
-    
-    
+
     public void drawIntro1(Graphics g)
     {
         	nextArray = new Image[4];
@@ -391,11 +271,6 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     public void drawButton(Graphics g)
     {
         g.drawImage(button.getScaledInstance(100,100,Image.SCALE_DEFAULT),1120,450,null);
-    	
-    }
-    public void drawButton2(Graphics g)
-    {
-        g.drawImage(button2.getScaledInstance(100,100,Image.SCALE_DEFAULT),1120,450,null);
     	
     }
     public void drawWin(Graphics g)
@@ -568,25 +443,15 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
     public void actionPerformed(ActionEvent e)
     {
-
         if(timeStart)
     	{
             
     		timeDec-=0.04;
-
-    	//level 1
-    	//timer
-    	
-    	if(timeStart)
-    	{
-    		timeDec-=0.15;
-    		
-
     		if(timeDec<=0 || numLives==0)
-    		{
-    			timeEnd=true;
-    			timeStart=false;
-    		}
+        	{
+        		timeEnd=true;
+        		timeStart=false;
+        	}
 
             //argo movement
 
@@ -681,114 +546,9 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             if(monster2X + 150 < 0)
                 resetMonster2 = true;
     	}
-    	
-    	//level 2
-    	if(timeStart2)
-    	{
-    		timeDec2-=0.15;
-    		
-    		if(timeDec2<=0 || numLives2==0)
-    		{
-    			timeEnd2=true;
-    			timeStart2=false;
-    		}
-    		
-    		//argo movement
-    		argoX -= addlvl1;
-            argoX -= addlvl1;
-            if(argoX< -100||argoX>= 1450)
-            {
-                numLives2--;
-                argoX = 650;
-                argoY = 250;
-            }
-
-            if(argoY< -100|argoY>= 650)
-            {
-                numLives2--;
-                argoX = 650;
-                argoY = 250;
-            }
-
-
-            //  waves bg movement
-            wave1X -= addlvl1;
-            if(wave1X < -1496)
-                wave1X = 0;
-
-            wave2X += addlvl1;
-            if(wave2X > 1500)
-                wave2X = 0;
-
-            //powerup movement
-            shieldX -= addlvl1;
-            heartpX -= addlvl1;
-
-            //shield powerup mechanics
-            if(!shieldVisible && Math.random() < 0.008)
-            {
-                shieldX = 1450;
-                shieldY = (int) (Math.random() * 650);
-                shieldVisible = true;
-            }
-
-            if(shieldVisible && shieldX < -50)
-            {
-                shieldVisible = false;
-            }
-
-            if(shieldVisible && (touchingPowerup(shieldX, shieldY, argoX, argoY)))
-            {
-                shieldVisible = false;
-                argowithShield = true;
-                shieldTime = System.currentTimeMillis();
-
-            }
-            if (argowithShield && System.currentTimeMillis() - shieldTime >= 5000) {
-                argowithShield = false;
-            }
-
-            //heart powerup mechanics
-            if(!heartVisible && Math.random() < 0.007)
-            {
-                heartpX = 1450;
-                heartpY = (int) (Math.random() * 650);
-                heartVisible = true;
-            }
-
-            if(heartVisible && heartpX < -50)
-            {
-                heartVisible = false;
-            }
-
-            if(heartVisible && (touchingPowerup(heartpX, heartpY, argoX, argoY)))
-            {
-                heartVisible = false;
-                if(numLives2<4)
-                    numLives2++;
-            }
-
-            // monster movement
-            monster1X -= addlvl1 + 20;
-            if(!argowithShield && monster1X < argoX + 100 && monster1X + 100 > argoX && monster1Y < argoY + 100 && monster1Y + 100 > argoY) {
-                resetMonster1 = true;
-                numLives2--;
-            }
-            if(monster1X + 150 < 0)
-                resetMonster1 = true;
-
-            monster2X -= addlvl1 + 20;
-            if(!argowithShield && monster2X < argoX + 100 && monster2X + 100 > argoX && monster2Y < argoY + 100 && monster2Y + 100 > argoY) {
-                resetMonster2 = true;
-                numLives2--;
-            }
-            if(monster2X + 150 < 0)
-                resetMonster2 = true;
-    	}
 
 
         repaint();
-        }
     }
 
 
@@ -818,10 +578,6 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
          if(mouseX>=1120 && mouseX<=1220 && mouseY>=450 && mouseY<=550)
          {
          	nextIndex++;
-         }
-         if(timeEnd && mouseX>=1120 && mouseX<=1220 && mouseY>=450 && mouseY<=550)
-         {
-         	nextIndex2++;
          }
          
 
