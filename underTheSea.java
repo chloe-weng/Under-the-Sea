@@ -334,7 +334,6 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         else
         {
         	timeStart2 = true;
-        	timeStart=false;
         }
     	
     }
