@@ -294,6 +294,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         		}
         		if(timeEnd2)
         		{
+        			timeStart2=false;
         			if(numLives2>0)
         			{
         				drawWin(g);
@@ -334,6 +335,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         else
         {
         	timeStart2 = true;
+        	timeStart=false;
         }
     	
     }
@@ -570,7 +572,6 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
     	//level 1
     	//timer
-    	
     	if(timeStart)
     	{
     		timeDec-=0.05;
@@ -780,6 +781,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
                 resetMonster2 = true;
     	}
         repaint();
+    	
         
     }
 
