@@ -92,6 +92,8 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         argoY = 250;
 
         // image initialization
+    
+        
         try {
             // intro images
             cover = ImageIO.read(new File("Cover.png"));
@@ -99,7 +101,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             instr1 = ImageIO.read(new File("Instructions Lvl 1.png"));
             lvl1 = ImageIO.read(new File("Level 1.png"));
             button = ImageIO.read(new File("nextSprite.png"));
-
+            
             // wave images
             wave1_1 = ImageIO.read(new File("wavesSprite.png"));
             wave1_2 = ImageIO.read(new File("wavesSprite.png"));
@@ -129,7 +131,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
         }
         catch (Exception e) {}
-
+    
         // waves bg variables
         wave1X = 0;
         wave1Y = 480;
@@ -170,10 +172,10 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         drawIntro1(g);
         drawButton(g);
         
-        if(timeStart)
+        if(timeStart && timeDec<60)
         {
             // draw background waves
-        	drawWave4(g);
+            drawWave4(g);
         	drawWave3(g);
         	drawWave2(g);
         	drawWave1(g);
@@ -441,9 +443,10 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
     public void actionPerformed(ActionEvent e)
     {
-    	if(timeStart)
+        if(timeStart)
     	{
-    		timeDec-=0.15;
+            
+    		timeDec-=0.04;
     		if(timeDec<=0 || numLives==0)
         	{
         		timeEnd=true;
