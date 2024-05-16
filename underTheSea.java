@@ -55,7 +55,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
     //powerup variables
     private int shieldX, shieldY, heartpX, heartpY, badX, badY;
-    private boolean shieldVisible, heartVisible, argowithShield, badVisible, normalSpeed;
+    private boolean shieldVisible, heartVisible, argowithShield, badVisible, fastSpeed;
     private long shieldTime;
     private long badTime;
     private Image powerup;
@@ -167,7 +167,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         heartVisible = false;
         argowithShield = false;
         badVisible = false;
-        normalSpeed = false;
+        fastSpeed = false;
 
         // monster variables
         monster1X = 1300;
@@ -697,8 +697,6 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     	//level 2
     	if(timeStart2)
     	{
-             
-            System.out.print("addlvl2: " + addlvl2);
     		timeDec2-=0.05;
     		
     		if(timeDec2<=0 || numLives2==0)
@@ -785,7 +783,6 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
             //bad powerup mechanics
             
-            System.out.print("badVisible: " + badVisible);
              if(!badVisible && Math.random() < 0.08)
             {
                 badX = 1450;
@@ -802,20 +799,21 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             {
                 badTime = System.currentTimeMillis();
                 badVisible = false;
-
+                fastSpeed = true;
                 System.out.print("IT WORKS");
-                addlvl2 = 24;
+
 
             }
 
-            if (System.currentTimeMillis() - badTime >= 10000) {
-                normalSpeed = true;
+            if (System.currentTimeMillis() - badTime >= 5000) {
+                fastSpeed = false;
             }
 
-            if(normalSpeed)
+            if(fastSpeed)
                 {
-                    addlvl2 = 12;
+                    addlvl2 = 20;
                 }
+                else addlvl2 = 12;
             
             /* System.out.print("badVisible: " + badVisible);
              if(!badVisible && Math.random() < 0.1)
