@@ -46,15 +46,18 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     private int argoX, argoY;
     private Image argo;
     private int addlvl1;
+    private int addlvl2;
+
 
     // waves bg variables
     private int wave1X, wave1Y, wave2X, wave2Y, wave3Y, wave4Y;
     private Image wave1_1, wave1_2, wave2_1, wave2_2, wave3_1, wave3_2, wave4_1, wave4_2;
 
     //powerup variables
-    private int shieldX, shieldY, heartpX, heartpY;
-    private boolean shieldVisible, heartVisible, argowithShield;
+    private int shieldX, shieldY, heartpX, heartpY, badX, badY;
+    private boolean shieldVisible, heartVisible, argowithShield, badVisible, normalSpeed;
     private long shieldTime;
+    private long badTime;
     private Image powerup;
     private Image argoWithShield;
     
@@ -97,6 +100,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         addlvl1 = 5;
         argoX = 650;
         argoY = 250;
+        addlvl2 = 12;
 
         // image initialization
     
@@ -157,9 +161,13 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         shieldY = 0;
         heartpX = 0; 
         heartpY = 0;
+        badX = 0;
+        badY = 0;
         shieldVisible = false;
         heartVisible = false;
         argowithShield = false;
+        badVisible = false;
+        normalSpeed = false;
 
         // monster variables
         monster1X = 1300;
@@ -167,7 +175,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         monster1Y = monster2Y = 0;
         monster1Type = monster2Type = 0;
         resetMonster1 = resetMonster2 = true;
-
+    
 
         addMouseListener(this);
         setFocusable(true);
@@ -231,6 +239,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     
              // drawHeart (2)
             if(heartVisible){drawHeart(g);}
+        
 
         }
         if(timeEnd)
@@ -291,6 +300,8 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             
                      // drawHeart (2)
                     if(heartVisible){drawHeart(g);}
+
+                     if(badVisible){drawBadpwp(g);}
         		}
         		if(timeEnd2)
         		{
@@ -445,6 +456,12 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     
     }
 
+    public void drawBadpwp(Graphics g)
+    {
+        g.drawImage(powerup, badX, badY, 50,50,null);
+    
+    }
+
     public void drawArgoWithShield(Graphics g)
     {
         g.drawImage(argoWithShield, argoX, argoY, 200,200,null);
@@ -566,7 +583,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     {
         g.drawImage(life4.getScaledInstance(30, 30, Image.SCALE_DEFAULT),200,50,null);
     }
-
+    
     public void actionPerformed(ActionEvent e)
     {
 
@@ -680,6 +697,8 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     	//level 2
     	if(timeStart2)
     	{
+             
+            System.out.print("addlvl2: " + addlvl2);
     		timeDec2-=0.05;
     		
     		if(timeDec2<=0 || numLives2==0)
@@ -689,8 +708,8 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     		}
     		
     		//argo movement
-    		argoX -= addlvl1;
-            argoX -= addlvl1;
+    		argoX -= addlvl2;
+            argoX -= addlvl2;
             if(argoX< -100||argoX>= 1450)
             {
                 numLives2--;
@@ -707,17 +726,18 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
 
             //  waves bg movement
-            wave1X -= addlvl1;
+            wave1X -= addlvl2;
             if(wave1X < -1496)
                 wave1X = 0;
 
-            wave2X += addlvl1;
+            wave2X += addlvl2;
             if(wave2X > 1500)
                 wave2X = 0;
 
             //powerup movement
-            shieldX -= addlvl1;
-            heartpX -= addlvl1;
+            shieldX -= addlvl2;
+            heartpX -= addlvl2;
+            badX -= addlvl2;
 
             //shield powerup mechanics
             if(!shieldVisible && Math.random() < 0.008)
@@ -744,7 +764,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             }
 
             //heart powerup mechanics
-            if(!heartVisible && Math.random() < 0.007)
+            if(!heartVisible && Math.random() < 0.008)
             {
                 heartpX = 1450;
                 heartpY = (int) (Math.random() * 650);
@@ -763,8 +783,67 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
                     numLives2++;
             }
 
+            //bad powerup mechanics
+            
+            System.out.print("badVisible: " + badVisible);
+             if(!badVisible && Math.random() < 0.08)
+            {
+                badX = 1450;
+                badY = (int) (Math.random() * 650);
+                badVisible = true;
+            }
+
+            if(badVisible && badX < -50)
+            {
+                badVisible = false;
+            }
+           
+            if(badVisible && (touchingPowerup(badX, badY, argoX, argoY)))
+            {
+                badTime = System.currentTimeMillis();
+                badVisible = false;
+
+                System.out.print("IT WORKS");
+                addlvl2 = 24;
+
+            }
+
+            if (System.currentTimeMillis() - badTime >= 10000) {
+                normalSpeed = true;
+            }
+
+            if(normalSpeed)
+                {
+                    addlvl2 = 12;
+                }
+            
+            /* System.out.print("badVisible: " + badVisible);
+             if(!badVisible && Math.random() < 0.1)
+            {
+                badX = 1450;
+                badY = (int) (Math.random() * 650);
+                badVisible = true;
+            }
+
+            if(badVisible && badX < -50)
+            {
+                badVisible = false;
+            }
+           
+            if(badVisible && (touchingPowerup(badX, badY, argoX, argoY)))
+            {{
+                badVisible = false;
+                addlvl2*=2;
+                badTime = System.currentTimeMillis();
+
+            }
+            if (System.currentTimeMillis() - badTime >= 5000) {
+                addlvl2/=2;
+            }} */
+ 
+
             // monster movement
-            monster1X -= addlvl1 + 20;
+            monster1X -= addlvl2 + 20;
             if(!argowithShield && monster1X < argoX + 100 && monster1X + 100 > argoX && monster1Y < argoY + 100 && monster1Y + 100 > argoY) {
                 resetMonster1 = true;
                 numLives2--;
@@ -772,7 +851,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             if(monster1X + 150 < 0)
                 resetMonster1 = true;
 
-            monster2X -= addlvl1 + 20;
+            monster2X -= addlvl2 + 20;
             if(!argowithShield && monster2X < argoX + 100 && monster2X + 100 > argoX && monster2Y < argoY + 100 && monster2Y + 100 > argoY) {
                 resetMonster2 = true;
                 numLives2--;
@@ -780,6 +859,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             if(monster2X + 150 < 0)
                 resetMonster2 = true;
     	}
+
         repaint();
     	
         
