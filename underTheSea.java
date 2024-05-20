@@ -48,6 +48,10 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     static AudioInputStream stream;
     static Clip music;
     
+
+
+
+
     // waves bg variables
     private int wave1X, wave1Y, wave2X, wave2Y, wave3Y, wave4Y;
     private Image wave1_1, wave1_2, wave2_1, wave2_2, wave3_1, wave3_2, wave4_1, wave4_2;
@@ -105,6 +109,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         argoY = 250;
         addlvl2 = 12;
 
+
         // image initialization
     
         
@@ -146,6 +151,50 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             //winlose
             loseScreen = ImageIO.read(new File("Lose Screen.png"));
             winScreen = ImageIO.read(new File("Win Screen.png"));
+
+
+        // image initialization
+    
+        
+        try {
+            // intro images
+        	cover = ImageIO.read(new File("Cover.png"));
+            intro = ImageIO.read(new File("Introduction.png"));
+            instr1 = ImageIO.read(new File("Instructions Lvl 1.png"));
+            lvl1 = ImageIO.read(new File("Level 1.png"));
+            button = ImageIO.read(new File("nextSprite.png"));
+
+            instr2 = ImageIO.read(new File("Instructions Lvl 2.png"));
+            lvl2 = ImageIO.read(new File("Level 2.png"));
+            button2 = ImageIO.read(new File("nextSprite.png"));
+
+            // wave images
+            wave1_1 = ImageIO.read(new File("wavesSprite.png"));
+            wave1_2 = ImageIO.read(new File("wavesSprite.png"));
+            wave2_1 = ImageIO.read(new File("wavesSprite.png"));
+            wave2_2 = ImageIO.read(new File("wavesSprite.png"));
+            wave3_1 = ImageIO.read(new File("wavesSprite.png"));
+            wave3_2 = ImageIO.read(new File("wavesSprite.png"));
+            wave4_1 = ImageIO.read(new File("wavesSprite.png"));
+            wave4_2 = ImageIO.read(new File("wavesSprite.png"));
+
+            // argo
+            argo = ImageIO.read(new File("argoSprite.png"));
+
+            // powerups
+            powerup = ImageIO.read(new File("powerupSprite.png"));
+            argoWithShield = ImageIO.read(new File("argoWithShieldSprite.png"));
+
+            // lives
+            life1 = ImageIO.read(new File("livesSprite.png"));
+            life2 = ImageIO.read(new File("livesSprite.png"));
+            life3 = ImageIO.read(new File("livesSprite.png"));
+            life4 = ImageIO.read(new File("livesSprite.png"));
+            
+            //winlose
+            loseScreen = ImageIO.read(new File("Lose Screen.png"));
+            winScreen = ImageIO.read(new File("Win Screen.png"));
+
 
         }
         catch (Exception e) {}
@@ -476,7 +525,9 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
                pwpY < argoY + 150 &&
                pwpY + 50 > argoY;
     }
+
     
+
     private void drawMonster1(Graphics g) {
         Image monster;
         int[] randY = {wave1Y, wave2Y, wave3Y, wave4Y};
@@ -608,6 +659,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             argoX -= addlvl1;
             argoX -= addlvl1;
             if(argoX< -100||argoX>= 1450)
+
             {
                 numLives--;
                 argoX = 650;
@@ -615,11 +667,13 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             }
 
             if(argoY< -100|argoY>= 650)
+
             {
                 numLives--;
                 argoX = 650;
                 argoY = 250;
             }
+
 
 
             //  waves bg movement
@@ -724,6 +778,145 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             if(argoX< -100||argoX>= 1450)
             {
                 numLives2--;
+
+            if(argoY< -100|argoY>= 650)
+            {
+                numLives--;
+
+                argoX = 650;
+                argoY = 250;
+            }
+
+            if(argoY< -100|argoY>= 650)
+            {
+                numLives2--;
+                argoX = 650;
+                argoY = 250;
+            }
+
+
+
+            //  waves bg movement
+            wave1X -= addlvl2;
+            if(wave1X < -1496)
+                wave1X = 0;
+
+            wave2X += addlvl2;
+            if(wave2X > 1500)
+                wave2X = 0;
+
+            //powerup movement
+            shieldX -= addlvl2;
+            heartpX -= addlvl2;
+            badX -= addlvl2;
+
+            //shield powerup mechanics
+            if(!shieldVisible && Math.random() < 0.008)
+            {
+                shieldX = 1450;
+                shieldY = (int) (Math.random() * 650);
+                shieldVisible = true;
+            }
+
+
+            //  waves bg movement
+            wave1X -= addlvl1;
+            if(wave1X < -1496)
+                wave1X = 0;
+
+            wave2X += addlvl1;
+            if(wave2X > 1500)
+                wave2X = 0;
+
+            //powerup movement
+            shieldX -= addlvl1;
+            heartpX -= addlvl1;
+
+            //shield powerup mechanics
+            if(!shieldVisible && Math.random() < 0.008)
+            {
+                shieldX = 1450;
+                shieldY = (int) (Math.random() * 650);
+                shieldVisible = true;
+            }
+
+
+            if(shieldVisible && shieldX < -50)
+            {
+                shieldVisible = false;
+            }
+
+            if(shieldVisible && (touchingPowerup(shieldX, shieldY, argoX, argoY)))
+            {
+
+                music.stop();
+                music.setFramePosition(0);
+                music.start();
+
+                shieldVisible = false;
+                argowithShield = true;
+                shieldTime = System.currentTimeMillis();
+
+            }
+            if (argowithShield && System.currentTimeMillis() - shieldTime >= 5000) {
+                argowithShield = false;
+            }
+
+            //heart powerup mechanics
+            if(!heartVisible && Math.random() < 0.007)
+            {
+                heartpX = 1450;
+                heartpY = (int) (Math.random() * 650);
+                heartVisible = true;
+            }
+
+            if(heartVisible && heartpX < -50)
+            {
+                heartVisible = false;
+            }
+
+            if(heartVisible && (touchingPowerup(heartpX, heartpY, argoX, argoY)))
+            {
+                heartVisible = false;
+                if(numLives<4)
+                    numLives++;
+            }
+
+            // monster movement
+            monster1X -= addlvl1 + 20;
+            if(!argowithShield && monster1X < argoX + 100 && monster1X + 100 > argoX && monster1Y < argoY + 100 && monster1Y + 100 > argoY) {
+                resetMonster1 = true;
+                numLives--;
+            }
+            if(monster1X + 150 < 0)
+                resetMonster1 = true;
+
+            monster2X -= addlvl1 + 20;
+            if(!argowithShield && monster2X < argoX + 100 && monster2X + 100 > argoX && monster2Y < argoY + 100 && monster2Y + 100 > argoY) {
+                resetMonster2 = true;
+                numLives--;
+            }
+            if(monster2X + 150 < 0)
+                resetMonster2 = true;
+    	}
+    	
+    	//level 2
+    	if(timeStart2)
+    	{
+    		timeDec2-=0.05;
+    		
+    		if(timeDec2<=0 || numLives2==0)
+    		{
+    			timeEnd2=true;
+    			timeStart2=false;
+    		}
+    		
+    		//argo movement
+    		argoX -= addlvl2;
+            argoX -= addlvl2;
+            if(argoX< -100||argoX>= 1450)
+            {
+                numLives2--;
                 argoX = 650;
                 argoY = 250;
             }
@@ -765,9 +958,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
             if(shieldVisible && (touchingPowerup(shieldX, shieldY, argoX, argoY)))
             {
-                music.stop();
-                music.setFramePosition(0);
-                music.start();
+
                 shieldVisible = false;
                 argowithShield = true;
                 shieldTime = System.currentTimeMillis();
@@ -792,9 +983,11 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
 
             if(heartVisible && (touchingPowerup(heartpX, heartpY, argoX, argoY)))
             {
+
                 music.stop();
                 music.setFramePosition(0);
                 music.start();
+
                 heartVisible = false;
                 if(numLives2<4)
                     numLives2++;
@@ -816,12 +1009,18 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
            
             if(badVisible && (touchingPowerup(badX, badY, argoX, argoY)))
             {
+
                 music.stop();
                 music.setFramePosition(0);
                 music.start();
                 badTime = System.currentTimeMillis();
                 badVisible = false;
                 fastSpeed = true;
+
+                badTime = System.currentTimeMillis();
+                badVisible = false;
+                fastSpeed = true;
+                
 
 
             }
@@ -836,29 +1035,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
                 }
                 else addlvl2 = 12;
             
-            /* System.out.print("badVisible: " + badVisible);
-             if(!badVisible && Math.random() < 0.1)
-            {
-                badX = 1450;
-                badY = (int) (Math.random() * 650);
-                badVisible = true;
-            }
-
-            if(badVisible && badX < -50)
-            {
-                badVisible = false;
-            }
            
-            if(badVisible && (touchingPowerup(badX, badY, argoX, argoY)))
-            {{
-                badVisible = false;
-                addlvl2*=2;
-                badTime = System.currentTimeMillis();
-
-            }
-            if (System.currentTimeMillis() - badTime >= 5000) {
-                addlvl2/=2;
-            }} */
  
 
             // monster movement
