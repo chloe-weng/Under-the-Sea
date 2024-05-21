@@ -483,37 +483,24 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     private void drawMonster1(Graphics g, int n) {
         Image monster;
         int[] randY = {wave1Y, wave2Y, wave3Y, wave4Y};
-
-            if (resetMonster1) { // at or reset to the front
+        if (resetMonster1) { // at or reset to the front
                 resetMonster1 = false;
                 int chooseY = (int) (Math.random() * 4) + 1;
                 // below MIGHT change depending on height of the sprite, might need to crop siren and reupload to git
                 monster1Y = randY[chooseY - 1];
                 monster1X = 1300;
 
-                monster1Type = (int) (Math.random() * n) + 1;
+                monster1Type = (int) (Math.random() * 2) + 1;
                 if (monster1Type == 1) {
                     try {
                         monster = ImageIO.read(new File("krakenSprite.png"));
                         g.drawImage(monster, monster1X, monster1Y - 10, 170, 170, null);
                     } catch (Exception e) {
                     }
-                } else if (monster1Type == 2) {
+                } else {
                     try {
                         monster = ImageIO.read(new File("sirenSprite.png"));
                         g.drawImage(monster, monster1X, monster1Y - 17, 190, 190, null);
-                    } catch (Exception e) {
-                    }
-                } else if (monster1Type == 3) {
-                    try {
-                        monster = ImageIO.read(new File("scyllaSprite.png"));
-                        g.drawImage(monster, monster1X, monster1Y - 25, 190, 190, null);
-                    } catch (Exception e) {
-                    }
-                } else {
-                    try {
-                        monster = ImageIO.read(new File("fugelSprite.png"));
-                        g.drawImage(monster, monster1X, monster1Y - 10, 170, 170, null);
                     } catch (Exception e) {
                     }
                 }
@@ -524,22 +511,10 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
                         g.drawImage(monster, monster1X, monster1Y - 10, 170, 170, null);
                     } catch (Exception e) {
                     }
-                } else if (monster1Type == 2) {
+                } else {
                     try {
                         monster = ImageIO.read(new File("sirenSprite.png"));
                         g.drawImage(monster, monster1X, monster1Y - 17, 190, 190, null);
-                    } catch (Exception e) {
-                    }
-                } else if (monster1Type == 3) {
-                    try {
-                        monster = ImageIO.read(new File("scyllaSprite.png"));
-                        g.drawImage(monster, monster1X, monster1Y - 25, 190, 190, null);
-                    } catch (Exception e) {
-                    }
-                } else {
-                    try {
-                        monster = ImageIO.read(new File("fugelSprite.png"));
-                        g.drawImage(monster, monster1X, monster1Y - 10, 160, 170, null);
                     } catch (Exception e) {
                     }
                 }
