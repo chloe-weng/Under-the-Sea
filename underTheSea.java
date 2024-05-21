@@ -524,6 +524,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
             }
         }
 
+        // plz work
         if(timeStart2) {
             if (resetMonster1) { // at or reset to the front
                 resetMonster1 = false;
