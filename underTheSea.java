@@ -105,7 +105,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         addlvl1 = 5;
         argoX = 650;
         argoY = 250;
-        addlvl2 = 12;
+        addlvl2 = 5;
 
         // image initialization
         try {
@@ -485,43 +485,105 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         Image monster;
         int[] randY = {wave1Y, wave2Y, wave3Y, wave4Y};
 
-        if(resetMonster1) { // at or reset to the front
-            resetMonster1 = false;
-            int chooseY = (int) (Math.random() * 4) + 1;
-            // below MIGHT change depending on height of the sprite, might need to crop siren and reupload to git
-            monster1Y = randY[chooseY - 1];
-            monster1X = 1300;
+        if(timeStart) {
+            if (resetMonster1) { // at or reset to the front
+                resetMonster1 = false;
+                int chooseY = (int) (Math.random() * 4) + 1;
+                // below MIGHT change depending on height of the sprite, might need to crop siren and reupload to git
+                monster1Y = randY[chooseY - 1];
+                monster1X = 1300;
 
-            monster1Type = (int) (Math.random() * 2) + 1;
-            if(monster1Type == 1) {
-                try {
-                    monster = ImageIO.read(new File("krakenSprite.png"));
-                    g.drawImage(monster, monster1X, monster1Y - 10, 170, 170, null);
+                monster1Type = (int) (Math.random() * 2) + 1;
+                if (monster1Type == 1) {
+                    try {
+                        monster = ImageIO.read(new File("krakenSprite.png"));
+                        g.drawImage(monster, monster1X, monster1Y - 10, 170, 170, null);
+                    } catch (Exception e) {
+                    }
+                } else {
+                    try {
+                        monster = ImageIO.read(new File("sirenSprite.png"));
+                        g.drawImage(monster, monster1X, monster1Y - 17, 190, 190, null);
+                    } catch (Exception e) {
+                    }
                 }
-                catch(Exception e) {}
-            }
-            else {
-                try {
-                    monster = ImageIO.read(new File("sirenSprite.png"));
-                    g.drawImage(monster, monster1X, monster1Y - 17, 190, 190, null);
+            } else {
+                if (monster1Type == 1) {
+                    try {
+                        monster = ImageIO.read(new File("krakenSprite.png"));
+                        g.drawImage(monster, monster1X, monster1Y - 10, 170, 170, null);
+                    } catch (Exception e) {
+                    }
+                } else {
+                    try {
+                        monster = ImageIO.read(new File("sirenSprite.png"));
+                        g.drawImage(monster, monster1X, monster1Y - 17, 190, 190, null);
+                    } catch (Exception e) {
+                    }
                 }
-                catch(Exception e) {}
             }
         }
-        else {
-            if(monster1Type == 1) {
-                try {
-                    monster = ImageIO.read(new File("krakenSprite.png"));
-                    g.drawImage(monster, monster1X, monster1Y - 10, 170, 170, null);
+
+        if(timeStart2) {
+            if (resetMonster1) { // at or reset to the front
+                resetMonster1 = false;
+                int chooseY = (int) (Math.random() * 4) + 1;
+                // below MIGHT change depending on height of the sprite, might need to crop siren and reupload to git
+                monster1Y = randY[chooseY - 1];
+                monster1X = 1300;
+
+                monster1Type = (int) (Math.random() * 4) + 1;
+                if (monster1Type == 1) {
+                    try {
+                        monster = ImageIO.read(new File("krakenSprite.png"));
+                        g.drawImage(monster, monster1X, monster1Y - 10, 170, 170, null);
+                    } catch (Exception e) {
+                    }
+                } else if (monster1Type == 2) {
+                    try {
+                        monster = ImageIO.read(new File("sirenSprite.png"));
+                        g.drawImage(monster, monster1X, monster1Y - 17, 190, 190, null);
+                    } catch (Exception e) {
+                    }
+                } else if (monster1Type == 3) {
+                    try {
+                        monster = ImageIO.read(new File("scyllaSprite.png"));
+                        g.drawImage(monster, monster1X, monster1Y - 25, 190, 190, null);
+                    } catch (Exception e) {
+                    }
+                } else {
+                    try {
+                        monster = ImageIO.read(new File("fugelSprite.png"));
+                        g.drawImage(monster, monster1X, monster1Y - 10, 170, 170, null);
+                    } catch (Exception e) {
+                    }
                 }
-                catch(Exception e) {}
-            }
-            else {
-                try {
-                    monster = ImageIO.read(new File("sirenSprite.png"));
-                    g.drawImage(monster, monster1X, monster1Y - 17, 190, 190, null);
+            } else {
+                if (monster1Type == 1) {
+                    try {
+                        monster = ImageIO.read(new File("krakenSprite.png"));
+                        g.drawImage(monster, monster1X, monster1Y - 10, 170, 170, null);
+                    } catch (Exception e) {
+                    }
+                } else if (monster1Type == 2) {
+                    try {
+                        monster = ImageIO.read(new File("sirenSprite.png"));
+                        g.drawImage(monster, monster1X, monster1Y - 17, 190, 190, null);
+                    } catch (Exception e) {
+                    }
+                } else if (monster1Type == 3) {
+                    try {
+                        monster = ImageIO.read(new File("scyllaSprite.png"));
+                        g.drawImage(monster, monster1X, monster1Y - 25, 190, 190, null);
+                    } catch (Exception e) {
+                    }
+                } else {
+                    try {
+                        monster = ImageIO.read(new File("fugelSprite.png"));
+                        g.drawImage(monster, monster1X, monster1Y - 10, 160, 170, null);
+                    } catch (Exception e) {
+                    }
                 }
-                catch(Exception e) {}
             }
         }
     }
@@ -531,43 +593,105 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         Image monster;
         int[] randY = {wave1Y, wave2Y, wave3Y, wave4Y};
 
-        if(resetMonster2) { // at or reset to the front
-            resetMonster2 = false;
-            int chooseY = (int) (Math.random() * 4) + 1;
-            // below MIGHT change depending on height of the sprite, might need to crop siren and reupload to git
-            monster2Y = randY[chooseY - 1];
-            monster2X = 1450;
+        if(timeStart) {
+            if (resetMonster2) { // at or reset to the front
+                resetMonster2 = false;
+                int chooseY = (int) (Math.random() * 4) + 1;
+                // below MIGHT change depending on height of the sprite, might need to crop siren and reupload to git
+                monster2Y = randY[chooseY - 1];
+                monster2X = 1450;
 
-            monster2Type = (int) (Math.random() * 2) + 1;
-            if(monster2Type == 1) {
-                try {
-                    monster = ImageIO.read(new File("krakenSprite.png"));
-                    g.drawImage(monster, monster2X, monster2Y - 10, 170, 170, null);
+                monster2Type = (int) (Math.random() * 2) + 1;
+                if (monster2Type == 1) {
+                    try {
+                        monster = ImageIO.read(new File("krakenSprite.png"));
+                        g.drawImage(monster, monster2X, monster2Y - 10, 170, 170, null);
+                    } catch (Exception e) {
+                    }
+                } else {
+                    try {
+                        monster = ImageIO.read(new File("sirenSprite.png"));
+                        g.drawImage(monster, monster2X, monster2Y - 17, 190, 190, null);
+                    } catch (Exception e) {
+                    }
                 }
-                catch(Exception e) {}
-            }
-            else {
-                try {
-                    monster = ImageIO.read(new File("sirenSprite.png"));
-                    g.drawImage(monster, monster2X, monster2Y - 17, 190, 190, null);
+            } else {
+                if (monster2Type == 1) {
+                    try {
+                        monster = ImageIO.read(new File("krakenSprite.png"));
+                        g.drawImage(monster, monster2X, monster2Y - 10, 170, 170, null);
+                    } catch (Exception e) {
+                    }
+                } else {
+                    try {
+                        monster = ImageIO.read(new File("sirenSprite.png"));
+                        g.drawImage(monster, monster2X, monster2Y - 17, 190, 190, null);
+                    } catch (Exception e) {
+                    }
                 }
-                catch(Exception e) {}
             }
         }
-        else {
-            if(monster2Type == 1) {
-                try {
-                    monster = ImageIO.read(new File("krakenSprite.png"));
-                    g.drawImage(monster, monster2X, monster2Y - 10, 170, 170, null);
+
+        if(timeStart2) {
+            if (resetMonster2) { // at or reset to the front
+                resetMonster2 = false;
+                int chooseY = (int) (Math.random() * 4) + 1;
+                // below MIGHT change depending on height of the sprite, might need to crop siren and reupload to git
+                monster2Y = randY[chooseY - 1];
+                monster2X = 1600;
+
+                monster2Type = (int) (Math.random() * 4) + 1;
+                if (monster2Type == 1) {
+                    try {
+                        monster = ImageIO.read(new File("krakenSprite.png"));
+                        g.drawImage(monster, monster2X, monster2Y - 10, 170, 170, null);
+                    } catch (Exception e) {
+                    }
+                } else if (monster2Type == 2) {
+                    try {
+                        monster = ImageIO.read(new File("sirenSprite.png"));
+                        g.drawImage(monster, monster2X, monster2Y - 17, 190, 190, null);
+                    } catch (Exception e) {
+                    }
+                } else if (monster2Type == 3) {
+                    try {
+                        monster = ImageIO.read(new File("scyllaSprite.png"));
+                        g.drawImage(monster, monster2X, monster2Y - 25, 190, 190, null);
+                    } catch (Exception e) {
+                    }
+                } else {
+                    try {
+                        monster = ImageIO.read(new File("fugelSprite.png"));
+                        g.drawImage(monster, monster2X, monster2Y - 10, 170, 170, null);
+                    } catch (Exception e) {
+                    }
                 }
-                catch(Exception e) {}
-            }
-            else {
-                try {
-                    monster = ImageIO.read(new File("sirenSprite.png"));
-                    g.drawImage(monster, monster2X, monster2Y - 17, 190, 190, null);
+            } else {
+                if (monster2Type == 1) {
+                    try {
+                        monster = ImageIO.read(new File("krakenSprite.png"));
+                        g.drawImage(monster, monster2X, monster2Y - 10, 170, 170, null);
+                    } catch (Exception e) {
+                    }
+                } else if (monster2Type == 2) {
+                    try {
+                        monster = ImageIO.read(new File("sirenSprite.png"));
+                        g.drawImage(monster, monster2X, monster2Y - 17, 190, 190, null);
+                    } catch (Exception e) {
+                    }
+                } else if (monster2Type == 3) {
+                    try {
+                        monster = ImageIO.read(new File("scyllaSprite.png"));
+                        g.drawImage(monster, monster2X, monster2Y - 25, 190, 190, null);
+                    } catch (Exception e) {
+                    }
+                } else {
+                    try {
+                        monster = ImageIO.read(new File("fugelSprite.png"));
+                        g.drawImage(monster, monster2X, monster2Y - 10, 170, 170, null);
+                    } catch (Exception e) {
+                    }
                 }
-                catch(Exception e) {}
             }
         }
     }
