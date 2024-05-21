@@ -479,7 +479,7 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
     }
 
     
-
+    // try again?
     private void drawMonster1(Graphics g, int n) {
         Image monster;
         int[] randY = {wave1Y, wave2Y, wave3Y, wave4Y};
