@@ -228,8 +228,8 @@ class MyPanelb extends JPanel implements ActionListener, KeyListener, MouseListe
         	}
         	
             // draw kraken and siren
-            drawMonster1(g, 4);
-            drawMonster2(g, 4);
+            drawMonster1(g, 2);
+            drawMonster2(g, 2);
             
         	// scarlett
         	if(argowithShield)
